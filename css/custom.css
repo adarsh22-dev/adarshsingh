@@ -1672,7 +1672,7 @@ header.main-header .header-sticky.active{
 }
 
 .tool-item-content h3{
-	font-size: 20px;
+	font-size: 14px;
 	text-transform: capitalize;
 	margin-bottom: 10px;
 }
@@ -1682,7 +1682,7 @@ header.main-header .header-sticky.active{
 }
 
 .tool-item-counter h2{
-	font-size: 42px;
+	font-size: 22px;
 	background: linear-gradient(254.54deg, #F0FF6C 0.03%, #6BFDD9 100%);
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -6629,4 +6629,8 @@ header.main-header .header-sticky.active{
     font-weight: 900;
     font-size: 14px;
     margin-left: 8px;
+}
+.tool-item-content p {
+    margin: 0;
+    font-size: 14px;
 }
