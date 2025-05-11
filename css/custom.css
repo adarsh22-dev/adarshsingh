@@ -6634,3 +6634,8 @@ header.main-header .header-sticky.active{
     margin: 0;
     font-size: 14px;
 }
+@media only screen and (max-width: 767px) {
+    .section-title h1 {
+        font-size: 22px !important;
+    }
+}
