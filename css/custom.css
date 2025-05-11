@@ -1886,7 +1886,7 @@ header.main-header .header-sticky.active{
 
 .foundation-content-year p{
 	display: inline-block;
-	font-size: 14px;
+	font-size: 10px;
 	font-weight: 600;
 	background: linear-gradient(254.54deg, var(--accent-color) 0.03%, var(--accent-secondary-color) 100%);
 	color: var(--black-color);
