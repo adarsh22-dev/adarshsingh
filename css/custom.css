@@ -6645,4 +6645,15 @@ header.main-header .header-sticky.active{
         margin-top: 5px !important;
         font-size: 12px !important;
     }
+	.hero-body {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px !important;
+}
+	    .hero-content {
+        margin-bottom: 0px;
+    }
+	    .section-title {
+        margin-bottom: 10px;
+    }
 }
