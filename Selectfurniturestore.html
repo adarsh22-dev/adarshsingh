@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zxx">
+<head>
+	<!-- Meta -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="author" content="Awaiken">
+	<!-- Page Title -->
+    <title>AdarshSingh - Personal Portfolio </title>
+	<!-- Favicon Icon -->
+	<!-- React and ReactDOM CDN (Production Build) -->
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+	<link rel="canonical" href="https://nextjs.org" />
+
+
+	<link rel="shortcut icon" type="image/x-icon" href="images/favicon.png">
+	<!-- Google Fonts Css-->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+	<!-- Bootstrap Css -->
+	<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<!-- SlickNav Css -->
+	<link href="css/slicknav.min.css" rel="stylesheet">
+	<!-- Swiper Css -->
+	<link rel="stylesheet" href="css/swiper-bundle.min.css">
+	<!-- Font Awesome Icon Css-->
+	<link href="css/all.min.css" rel="stylesheet" media="screen">
+	<!-- Animated Css -->
+	<link href="css/animate.css" rel="stylesheet">
+    <!-- Magnific Popup Core Css File -->
+	<link rel="stylesheet" href="css/magnific-popup.css">
+	<!-- Mouse Cursor Css File -->
+	<link rel="stylesheet" href="css/mousecursor.css">
+	<!-- Main Custom Css -->
+	<link href="css/custom.css" rel="stylesheet" media="screen">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+<style>
+.page-portfoilo-single {
+    position: relative;
+    padding: 40px 0 0px 0 !important;
+    z-index: 1;
+}
+</style>
+</head>
+<body>
+
+    <!-- Preloader Start -->
+	<div class="preloader">
+		<div class="loading-container">
+			<div class="loading"></div>
+			<div id="loading-icon"><img src="images/loader.svg" alt=""></div>
+		</div>
+	</div>
+	<!-- Preloader End -->
+
+    <!-- Grid Lines Start -->
+    <div class="grid-lines">
+        <div class="grid-line-1"></div>
+        <div class="grid-line-2"></div>
+        <div class="grid-line-3"></div>
+        <div class="grid-line-4"></div>
+        <div class="grid-line-5"></div>
+    </div>
+    <!-- Grid Lines End -->
+
+    <!-- Header Start -->
+	<header class="main-header">
+		<div class="header-sticky">
+			<nav class="navbar navbar-expand-lg">
+				<div class="container">
+					<!-- Logo Start -->
+					<a class="navbar-brand" href="./">
+						<img src="images/logo.png" alt="Logo">
+					</a>
+					<!-- Logo End -->
+
+					<!-- Main Menu Start -->
+					<div class="collapse navbar-collapse main-menu">
+                        <div class="nav-menu-wrapper">
+                            <ul class="navbar-nav mr-auto" id="menu">
+                                <li class="nav-item submenu"><a class="nav-link" href="./">Home</a>
+                                    <!--<ul>
+                                        <li class="nav-item"><a class="nav-link" href="index.html">Home - Main</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="index-image.html">Home - Image</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="index-video.html">Home - Video</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="index-slider.html">Home - Slider</a></li>
+                                    </ul>-->
+                                </li>                                
+                                <li class="nav-item"><a class="nav-link" href="#">About Us</a>
+                                <li class="nav-item"><a class="nav-link" href="#">Services</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#">Blog</a></li>
+                                <li class="nav-item submenu"><a class="nav-link" href="#">Portfolio</a>
+                                    <!--<ul>                                        
+                                        <li class="nav-item"><a class="nav-link" href="service-single.html">Service Details</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="blog-single.html">Blog Details</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="portfolio.html">Portfolio</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="portfolio-single.html">Portfolio details</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="team.html">Our Team</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="team-single.html">Team Details</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="pricing.html">Pricing Plan</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="testimonials.html">Testimonials</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="image-gallery.html">Image Gallery</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="video-gallery.html">Video Gallery</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="faqs.html">FAQs</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="404.html">404</a></li>
+                                    </ul>-->
+                                </li>
+                                <li class="nav-item"><a class="nav-link" href="#">Contact Us</a></li>                         
+                            </ul>
+                        </div>
+                        
+                        <!-- Header Btn Start -->
+                        <div class="header-btn d-inline-flex">
+                            <a href="images/Adarsh_Singh.pdf" class="btn-default">Download CV</a>
+                        </div>
+                        <!-- Header Btn End -->
+					</div>
+					<!-- Main Menu End -->
+					<div class="navbar-toggle"></div>
+				</div>
+			</nav>
+			<div class="responsive-menu"></div>
+		</div>
+	</header>
+	<!-- Header End -->
+
+    <!-- Page Header Start -->
+	<div class="page-header">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-lg-12">
+					<!-- Page Header Box Start -->
+					<div class="page-header-box">
+						<h1 class="wow fadeInUp" data-cursor="-opaque">Why prototyping is essential for ...</h1>
+						<nav class="wow fadeInUp" data-wow-delay="0.2s">
+                            <ol class="breadcrumb">
+								<li class="breadcrumb-item"><a href="./">home</a></li>
+								<li class="breadcrumb-item"><a href="portfolio.html">portfoilos</a></li>
+								<li class="breadcrumb-item active" aria-current="page">Why prototyping is essential for ...</li>
+							</ol>
+						</nav>
+					</div>
+					<!-- Page Header Box End -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Page Header End -->
+
+    <!-- Scrolling Ticker Section Start -->
+    <div class="our-scrolling-ticker">
+        <!-- Scrolling Ticker Start -->
+        <div class="scrolling-ticker-box">
+            <div class="scrolling-content">
+                <span><img src="images/star-icon.svg" alt="">Website Design</span>
+                <span><img src="images/star-icon.svg" alt="">Mobile App Design</span>
+                <span><img src="images/star-icon.svg" alt="">Wireframe Design</span>
+                <span><img src="images/star-icon.svg" alt="">Dashboard Design</span>
+                <span><img src="images/star-icon.svg" alt="">Product Design</span>
+                <span><img src="images/star-icon.svg" alt="">Website Design</span>
+                <span><img src="images/star-icon.svg" alt="">Mobile App Design</span>
+                <span><img src="images/star-icon.svg" alt="">Wireframe Design</span>
+                <span><img src="images/star-icon.svg" alt="">Dashboard Design</span>
+                <span><img src="images/star-icon.svg" alt="">Product Design</span>
+            </div>
+
+            <div class="scrolling-content">
+                <span><img src="images/star-icon.svg" alt="">Website Design</span>
+                <span><img src="images/star-icon.svg" alt="">Mobile App Design</span>
+                <span><img src="images/star-icon.svg" alt="">Wireframe Design</span>
+                <span><img src="images/star-icon.svg" alt="">Dashboard Design</span>
+                <span><img src="images/star-icon.svg" alt="">Product Design</span>
+                <span><img src="images/star-icon.svg" alt="">Website Design</span>
+                <span><img src="images/star-icon.svg" alt="">Mobile App Design</span>
+                <span><img src="images/star-icon.svg" alt="">Wireframe Design</span>
+                <span><img src="images/star-icon.svg" alt="">Dashboard Design</span>
+                <span><img src="images/star-icon.svg" alt="">Product Design</span>
+            </div>
+        </div>
+        <!-- Scrolling Ticker End -->
+    </div>
+    <!-- Scrolling Ticker Section End -->
+
+    <!-- Page Portfoilo Single Start -->
+    <div class="page-portfoilo-single">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <!-- Page Single Sidebar Start -->
+                    <div class="page-single-sidebar">
+                        <!-- Project Category List Start -->
+                        <div class="project-category-list wow fadeInUp">
+                            <h3>Project Information</h3>
+                            <ul>
+                                <li>category: <span>Shopify</span></li>
+                                <li>client: <span>ergode</span></li>
+                                <li>date: <span>1 March, 2024</span></li>
+                                <li>estimation: <span>2 week</span></li>
+                                <!--<li>share: <span>
+                                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a></span>
+                                </li>-->
+                            </ul>
+                        </div>
+                        <!-- Project Category List End -->
+
+                        <!-- Sidebar CTA Box Start -->
+                        
+                        <!-- Sidebar CTA Box End -->
+                    </div>
+                    <!-- Page Single Sidebar End -->
+                </div>
+
+                <div class="col-lg-8">
+    <!-- Project Single Content Start -->
+    <div class="project-single-content">
+        <!-- Project Featured Image Start -->
+        <div class="project-feature-image">
+            <figure class="image-anime reveal" style="transform: translate(0px, 0px); opacity: 1; visibility: inherit;">
+                <img src="images/portfolio-8.jpg" alt="Toytooth Shopify Project" style="transform: translate(0px, 0px);">
+            </figure>
+        </div>
+        <!-- Project Featured Image End -->
+
+        <!-- Project Entry Start-->
+<!-- Project Entry Start-->
+<div class="project-entry">
+    <!-- Section Title Start -->
+    <div class="section-title">
+        <h2 class="wow fadeInUp" data-cursor="-opaque">Project <span>overview</span></h2>
+        <p class="wow fadeInUp" data-wow-delay="0.2s">
+            SelectFurnitureStore migrated from OpenCart to Shopify between Feb 2024 - May 2024. The business faced performance limitations, manual maintenance, and a lack of user-friendly features on OpenCart. Shopify was chosen to provide a scalable, secure, and conversion-focused eCommerce experience.
+        </p>
+        <p class="wow fadeInUp" data-wow-delay="0.4s">
+            We executed a full migration, rebuilding the storefront with a clean, responsive Shopify theme while preserving essential SEO and functionality. The result was a modern, mobile-optimized shopping experience tailored for increased engagement and sales.
+        </p>
+    </div>
+    <!-- Section Title End -->
+
+    <!-- Section Title Start -->
+    <div class="section-title">
+        <h2 class="wow fadeInUp" data-wow-delay="0.6s" data-cursor="-opaque">Project challenge, <span>solution &amp; result</span></h2>
+        <p class="wow fadeInUp" data-wow-delay="0.8s">
+            Migrating from a legacy platform like OpenCart required careful handling of data, SEO, and performance optimizations. The challenge was to preserve content and rankings while improving UX and backend efficiency.
+        </p>
+        <p class="wow fadeInUp" data-wow-delay="1s">
+            We implemented a phased migration strategy using third-party tools and custom scripts to ensure data accuracy. Shopify's ecosystem enabled us to replace old extensions with streamlined apps and develop new features where needed.
+        </p>
+        <p class="wow fadeInUp" data-wow-delay="1.2s">
+            The final site delivered faster load times, higher mobile conversions, and easier admin management, positioning SelectFurnitureStore for long-term growth.
+        </p>
+    </div>
+    <!-- Section Title End -->
+
+    <!-- Project Entry Tabs Start -->
+    <div class="project-entry-tab tab-content wow fadeInUp" data-wow-delay="0.6s" id="projectTabContent">
+        <div class="project-entry-nav">
+            <ul class="nav nav-tabs" id="projectTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="challenge-tab" data-bs-toggle="tab" data-bs-target="#challenge" type="button" role="tab" aria-selected="true">Project Challenge</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="solution-tab" data-bs-toggle="tab" data-bs-target="#solution" type="button" role="tab" aria-selected="false">Project Solution</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="result-tab" data-bs-toggle="tab" data-bs-target="#result" type="button" role="tab" aria-selected="false">Project Result</button>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Challenge Tab -->
+        <div class="project-entry-tab-item tab-pane fade show active" id="challenge" role="tabpanel" aria-labelledby="challenge-tab">
+            <div class="row align-items-center">
+                <div class="col-md-12">
+                    <div class="project-entry-tab-box">
+                        <div class="project-tab-content">
+                            <p>SelectFurnitureStore faced several migration and modernization challenges:</p>
+                        </div>
+                        <div class="project-tab-list">
+                            <div class="project-tab-list-content">
+                                <h3>Outdated Tech Stack</h3>
+                                <p>Manual updates and limited integrations on OpenCart affected scalability and maintenance.</p>
+                            </div>
+                            <div class="project-tab-list-content">
+                                <h3>Data Migration</h3>
+                                <p>Accurate migration of products, customers, and order history while ensuring data integrity.</p>
+                            </div>
+                            <div class="project-tab-list-content">
+                                <h3>SEO Retention</h3>
+                                <p>Maintaining existing search rankings during platform transition with proper redirects and metadata mapping.</p>
+                            </div>
+                            <div class="project-tab-list-content">
+                                <h3>Custom Features</h3>
+                                <p>Replacing OpenCart extensions with Shopify apps or custom development without loss of functionality.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Solution Tab -->
+        <div class="project-entry-tab-item tab-pane fade" id="solution" role="tabpanel" aria-labelledby="solution-tab">
+            <div class="row align-items-center">
+                <div class="col-md-12">
+                    <div class="project-entry-tab-box">
+                        <div class="project-tab-content">
+                            <p>We provided a robust Shopify migration and customization solution:</p>
+                        </div>
+                        <div class="project-tab-list">
+                            <div class="project-tab-list-content">
+                                <h3>Shopify Setup & Theme Customization</h3>
+                                <p>Selected a conversion-optimized theme and fully customized it to match SelectFurnitureStore’s brand identity.</p>
+                            </div>
+                            <div class="project-tab-list-content">
+                                <h3>Automated Data Migration</h3>
+                                <p>Used migration tools and scripts to transfer data accurately and reduce manual work.</p>
+                            </div>
+                            <div class="project-tab-list-content">
+                                <h3>SEO Optimization</h3>
+                                <p>Implemented 301 redirects, optimized metadata, and validated all URL structures to retain organic traffic.</p>
+                            </div>
+                            <div class="project-tab-list-content">
+                                <h3>Performance Enhancements</h3>
+                                <p>Optimized Liquid code, compressed images, and ensured fast mobile load speeds.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Result Tab -->
+        <div class="project-entry-tab-item tab-pane fade" id="result" role="tabpanel" aria-labelledby="result-tab">
+            <div class="row align-items-center">
+                <div class="col-md-12">
+                    <div class="project-entry-tab-box">
+                        <div class="project-tab-content">
+                            <p>The Shopify-powered store delivered measurable improvements for SelectFurnitureStore:</p>
+                        </div>
+                        <div class="project-tab-list">
+                            <div class="project-tab-list-content">
+                                <h3>Faster Load Times</h3>
+                                <p>Significantly reduced page load speed on both desktop and mobile.</p>
+                            </div>
+                            <div class="project-tab-list-content">
+                                <h3>Higher Conversion Rates</h3>
+                                <p>Improved user flow and mobile responsiveness led to increased conversions.</p>
+                            </div>
+                            <div class="project-tab-list-content">
+                                <h3>Simplified Management</h3>
+                                <p>Shopify’s intuitive backend made it easy for the team to manage inventory, content, and orders.</p>
+                            </div>
+                            <div class="project-tab-list-content">
+                                <h3>Scalable Growth</h3>
+                                <p>The new platform enables future expansion through apps and Shopify Plus readiness.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Project Entry Tabs End -->
+    </div>
+</div>
+
+<!-- Project Entry End-->
+
+
+        <!-- Project Entry End -->
+    </div>
+    <!-- Project Single Content End -->
+</div>
+
+        </div>
+    </div>
+    <!-- Page Portfoilo Single End -->
+
+  <!-- Footer Start -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- Footer Header Start -->
+                    <div class="footer-header">
+                        <!-- Footer Title Start -->
+                        <div class="footer-title">
+                            <h2>Ready to work with us?</h2>
+                            <p>Partner with our design agency for your business with amazing results.</p>
+                        </div>
+                        <!-- Footer Title End -->
+
+                        <!-- Footer Contact Circle Start -->
+                        <div class="footer-get-started-circle">
+                            <a href="contact.html"><img src="images/get-started-circle-dark.png" alt=""></a>
+                        </div>
+                        <!-- Footer Contact Circle End -->
+                    </div>
+                    <!-- Footer Header End -->                  
+                </div>
+                
+                <div class="col-lg-5 col-md-12">
+                    <!-- About Footer Start -->
+                    <div class="about-footer">
+                        <!-- Footer Logo Start -->
+                        <div class="footer-logo">
+                            <img src="images/footer-logo.png" alt="">
+                        </div>
+                        <!-- Footer Logo End -->
+
+                        <!-- About Footer Content Start -->
+                        <div class="about-footer-content">
+                            <p>Crafting intuitive, user-centric designs that bring ideas to life. With a passion for innovation and creativity, I help businesses and individuals.</p>
+                        </div>           
+                        <!-- About Footer Content End -->
+                         
+                        <!-- Footer Social Link Start -->
+                        <div class="footer-social-links">
+                            <ul>
+                                <li><a href="#"><i class="fa-brands fa-dribbble"></i></a></li>
+                                <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
+                                <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
+                                <li><a href="#"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                            </ul>
+                        </div>
+                        <!-- Footer Social Link End -->
+                    </div>
+                    <!-- About Footer End -->
+                </div>
+                
+                <div class="col-lg-2 col-md-3">
+                    <!-- Footer Links Start -->
+                    <div class="footer-links">
+                        <h3>quick links</h3>
+                        <ul>
+                            <li><a href="index.html">home</a></li>
+                            <li><a href="about.html">about us</a></li>
+                            <li><a href="services.html">services</a></li>
+                            <li><a href="portfolio.html">portofilo</a></li>
+                        </ul>
+                    </div>
+                    <!-- Footer Links End -->
+                </div>
+
+                <div class="col-lg-3 col-md-5">
+                    <!-- Footer Links Start -->
+                    <div class="footer-links">
+                        <h3>Our Services</h3>
+                        <ul>
+                            <li><a href="#">Mobile App Design</a></li>
+                            <li><a href="#">UI/UX Design</a></li>
+                            <li><a href="#">Branding and Visual Identity</a></li>
+                            <li><a href="#">Consultation and Strategy</a></li>
+                        </ul>
+                    </div>
+                    <!-- Footer Links End -->
+                </div>
+
+                <div class="col-lg-2 col-md-4">
+                    <!-- Footer Links Start -->
+                    <div class="footer-links">
+                        <!--<h3>View My Work</h3>
+                        <ul>
+                            <li><a href="#">Behance</a></li>
+                            <li><a href="#">Dribbble</a></li>
+                            <li><a href="#">Upwork</a></li>
+                            <li><a href="#">Fiverr</a></li>
+                        </ul>-->
+                    </div>
+                    <!-- Footer Links End -->
+                </div>
+
+                <div class="col-lg-12">
+                    <!-- Footer Copyright Start -->
+                    <div class="footer-copyright-text">
+                        <p>Copyright © 2025 All Rights Reserved.</p>
+                    </div>
+                    <!-- Footer Copyright End -->
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer End -->
+
+    <!-- Jquery Library File -->
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <!-- Bootstrap js file -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Validator js file -->
+    <script src="js/validator.min.js"></script>
+    <!-- SlickNav js file -->
+    <script src="js/jquery.slicknav.js"></script>
+    <!-- Swiper js file -->
+    <script src="js/swiper-bundle.min.js"></script>
+    <!-- Counter js file -->
+    <script src="js/jquery.waypoints.min.js"></script>
+    <script src="js/jquery.counterup.min.js"></script>
+    <!-- Isotop js file -->
+	<script src="js/isotope.min.js"></script>
+    <!-- Magnific js file -->
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <!-- SmoothScroll -->
+    <script src="js/SmoothScroll.js"></script>
+    <!-- Parallax js -->
+    <script src="js/parallaxie.js"></script>
+    <!-- MagicCursor js file -->
+    <script src="js/gsap.min.js"></script>
+    <script src="js/magiccursor.js"></script>
+    <!-- Text Effect js file -->
+    <script src="js/SplitText.js"></script>
+    <script src="js/ScrollTrigger.min.js"></script>
+    <!-- YTPlayer js File -->
+    <script src="js/jquery.mb.YTPlayer.min.js"></script>
+    <!-- Wow js file -->
+    <script src="js/wow.min.js"></script>
+    <!-- Main Custom js file -->
+    <script src="js/function.js"></script>
+</body>
+</html>
+</html>
