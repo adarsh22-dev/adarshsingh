@@ -2309,7 +2309,7 @@ header.main-header .header-sticky.active{
 
 .testimonial-company-slider .company-logo img{
 	width: 100%;
-	max-height: 71px;
+	max-height: 100%;
 }
 
 /************************************/
