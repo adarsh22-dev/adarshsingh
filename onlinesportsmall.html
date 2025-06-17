@@ -1,0 +1,25 @@
+{% if template == 'collection' %}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "{{ collection.title | escape }}",  // Adding the collection name here
+      "itemListElement": [
+        {% for product in collection.products %}
+          {% if product.url and product.featured_image %}
+            {
+              "@type": "ListItem",
+              "position": {{ forloop.index }},
+              "url": "{{ shop.url }}{{ product.url | absolute_url }}",
+              "name": "{{ product.title | escape }}",
+              "image": "{{ product.featured_image | image_url: '' | escape }}"
+            }
+            {% if forloop.last == false %},{% endif %}
+          {% else %}
+            {% comment %} Skip product without URL or featured image {% endcomment %}
+          {% endif %}
+        {% endfor %}
+      ]
+    }
+  </script>
+{% endif %}
