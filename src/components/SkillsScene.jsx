@@ -1,5 +1,5 @@
-import React, { Suspense, useMemo } from 'react';
-import { Canvas } from '@react-three/fiber';
+import React, { Suspense, useMemo, useRef } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { Decal, Float, useTexture, Preload } from '@react-three/drei';
 
 const techs = [
@@ -26,12 +26,26 @@ const techs = [
   { name: 'CRM', icon: '/tech/crm.svg' },
 ];
 
-function Ball({ imgUrl, position, scale = 1.8 }) {
+function seededRandom(seed) {
+  const x = Math.sin(seed * 9301 + 49297) * 49297;
+  return x - Math.floor(x);
+}
+
+function Ball({ imgUrl, position, scale, floatSpeed, floatRot, floatInt }) {
   const decal = useTexture(imgUrl);
+  const meshRef = useRef();
+
+  useFrame(({ clock }) => {
+    if (meshRef.current) {
+      meshRef.current.position.y = position[1] + Math.sin(clock.elapsedTime * floatSpeed + position[0]) * 0.3;
+      meshRef.current.rotation.x = Math.sin(clock.elapsedTime * floatRot * 0.5 + position[0]) * 0.2;
+      meshRef.current.rotation.y += 0.005 * floatRot;
+    }
+  });
 
   return (
-    <Float speed={1.2} rotationIntensity={0.6} floatIntensity={1.2} position={position}>
-      <mesh scale={scale}>
+    <group position={[position[0], position[1], position[2]]}>
+      <mesh ref={meshRef} scale={scale}>
         <icosahedronGeometry args={[1, 1]} />
         <meshStandardMaterial color="#fff8eb" flatShading />
         <Decal
@@ -42,31 +56,39 @@ function Ball({ imgUrl, position, scale = 1.8 }) {
           flatShading
         />
       </mesh>
-    </Float>
+    </group>
   );
 }
 
 function SkillsScene({ isMobile }) {
-  const cols = isMobile ? 5 : 7;
-  const spacing = isMobile ? 2.6 : 2.0;
+  const cols = isMobile ? 4 : 7;
+  const spacing = isMobile ? 1.8 : 2.2;
   const startX = -(cols - 1) * spacing / 2;
-  const scaleVal = isMobile ? 1.4 : 1.8;
+  const scaleVal = isMobile ? 1.2 : 1.8;
+  const maxRow = Math.ceil(techs.length / cols) - 1;
+  const centerY = maxRow * -spacing / 2 + 1.2;
 
   const rows = useMemo(() => {
     const r = [];
     techs.forEach((t, i) => {
       const col = i % cols;
       const row = Math.floor(i / cols);
+      const seed = i * 137;
+      const xOff = (seededRandom(seed) - 0.5) * 0.3;
+      const yOff = (seededRandom(seed + 1) - 0.5) * 0.3;
       r.push({
         ...t,
-        position: [startX + col * spacing, row * -spacing + 2, 0],
+        position: [startX + col * spacing + xOff, row * -spacing + centerY + yOff, (seededRandom(seed + 2) - 0.5) * 0.4],
         key: t.name,
+        floatSpeed: 0.6 + seededRandom(seed + 3) * 0.8,
+        floatRot: 0.5 + seededRandom(seed + 4) * 0.8,
+        floatInt: 0.3 + seededRandom(seed + 5) * 0.4,
       });
     });
     return r;
   }, []);
 
-  const camZ = isMobile ? 11 : 8;
+  const camZ = isMobile ? 10 : 8;
 
   return (
     <Canvas
@@ -75,11 +97,19 @@ function SkillsScene({ isMobile }) {
       camera={{ position: [0, 0, camZ], fov: 50 }}
       style={{ width: '100%', height: '100%' }}
     >
-      <ambientLight intensity={0.5} />
+      <ambientLight intensity={0.6} />
       <directionalLight position={[5, 5, 5]} intensity={0.8} />
       <Suspense fallback={null}>
         {rows.map((r) => (
-          <Ball key={r.key} imgUrl={r.icon} position={r.position} scale={scaleVal} />
+          <Ball
+            key={r.key}
+            imgUrl={r.icon}
+            position={r.position}
+            scale={scaleVal}
+            floatSpeed={r.floatSpeed}
+            floatRot={r.floatRot}
+            floatInt={r.floatInt}
+          />
         ))}
         <Preload all />
       </Suspense>
