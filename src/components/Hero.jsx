@@ -135,7 +135,7 @@ const Hero = () => {
 
           {/* Heading */}
           <h1 className="hero-title" style={{
-            fontSize: 'clamp(2.8rem, 5.5vw, 5rem)',
+            fontSize: 'clamp(2.8rem, 3.5vw, 5rem)',
             lineHeight: '1.05',
             marginBottom: '1.5rem',
             fontWeight: '800',

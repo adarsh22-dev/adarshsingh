@@ -1,45 +1,44 @@
-import React, { useRef, useEffect, useState } from 'react';
-import BallCanvas from './BallCanvas';
+import React, { useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 
 gsap.registerPlugin(ScrollTrigger);
 
-function useSvgToDataUrl(svgPath) {
-  const [dataUrl, setDataUrl] = useState(null);
-
-  useEffect(() => {
-    if (!svgPath?.endsWith('.svg')) { setDataUrl(svgPath); return; }
-
-    fetch(svgPath)
-      .then(r => r.text())
-      .then(svg => {
-        const img = new Image();
-        const blob = new Blob([svg], { type: 'image/svg+xml' });
-        const url = URL.createObjectURL(blob);
-        img.onload = () => {
-          const c = document.createElement('canvas');
-          c.width = 256; c.height = 256;
-          const ctx = c.getContext('2d');
-          ctx.drawImage(img, 0, 0, 256, 256);
-          URL.revokeObjectURL(url);
-          setDataUrl(c.toDataURL('image/png'));
-        };
-        img.src = url;
-      })
-      .catch(() => setDataUrl(svgPath));
-  }, [svgPath]);
-
-  return dataUrl;
-}
-
 const SkillItem = ({ tech }) => {
-  const iconUrl = useSvgToDataUrl(tech.icon);
-
   return (
-    <div title={tech.name} style={{ width: '80px', height: '80px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      {iconUrl && <BallCanvas icon={iconUrl} />}
+    <div title={tech.name} style={{
+      width: '80px',
+      height: '80px',
+      borderRadius: '50%',
+      background: 'radial-gradient(circle at 35% 35%, rgba(255,255,255,0.08), rgba(255,255,255,0.02) 60%, transparent)',
+      border: '1px solid rgba(255,255,255,0.08)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      transition: 'all 0.3s ease',
+      cursor: 'default',
+      position: 'relative',
+      boxShadow: 'inset 0 -2px 8px rgba(0,0,0,0.3), 0 4px 16px rgba(0,0,0,0.15)'
+    }}
+    onMouseEnter={(e) => {
+      e.currentTarget.style.borderColor = 'rgba(122,0,255,0.3)';
+      e.currentTarget.style.boxShadow = 'inset 0 -2px 8px rgba(0,0,0,0.3), 0 4px 24px rgba(122,0,255,0.2)';
+      e.currentTarget.style.transform = 'translateY(-4px) scale(1.05)';
+    }}
+    onMouseLeave={(e) => {
+      e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)';
+      e.currentTarget.style.boxShadow = 'inset 0 -2px 8px rgba(0,0,0,0.3), 0 4px 16px rgba(0,0,0,0.15)';
+      e.currentTarget.style.transform = 'translateY(0) scale(1)';
+    }}>
+      <img
+        src={tech.icon}
+        alt={tech.name}
+        style={{ width: '60%', height: '60%', objectFit: 'contain' }}
+        onError={(e) => {
+          e.target.style.display = 'none';
+        }}
+      />
     </div>
   );
 };
