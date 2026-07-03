@@ -1,0 +1,92 @@
+ADARSH SINGH
+Senior Software Engineer | AI Engineer | Shopify Plus Expert
+Mumbai Metropolitan Region, India
+Phone: +91 8828186537
+Email: adarshsingh55555ac@gmail.com
+LinkedIn: linkedin.com/in/adarshvinodkumarsingh
+GitHub: github.com/adarsh22-dev
+Portfolio: adarshsinghportfoliofive.vercel.app
+
+SUMMARY
+
+Full-Stack Software Engineer with 6+ years of experience building scalable web applications, ecommerce platforms, AI-powered products, and automation systems. Expertise spans AI Agents, Agentic Workflows, React.js, Next.js, TypeScript, JavaScript, Shopify Plus, Custom Theme Development, RAG Systems, AI Integrations, Frontend Architecture, Performance Optimization, and API Development and Automation. Built and optimized 50+ ecommerce stores and web applications. Improved operational efficiency through intelligent automation. Developed AI-powered products and agentic workflows. Delivered scalable frontend systems used in production environments. Improved Core Web Vitals, SEO performance, and user experience. Open to AI Engineering, Full-Stack Development, Frontend Engineering, Shopify Plus Development, and remote roles.
+
+SKILLS
+
+MEAN Stack - MongoDB, Express.js, Angular, React, Node.js
+Software Infrastructure
+Application Development
+AI Agents and Agentic Workflows
+Shopify Plus Development
+React.js, Next.js, TypeScript
+Frontend Architecture and Performance Optimization
+API Development and Automation
+RAG Systems and AI Integrations
+Python, C, C++, .NET
+WordPress, Magento
+CRM Systems
+Docker, Git, Figma
+Three.js, Tailwind CSS, Redux
+HTML5, CSS3, JavaScript
+
+EXPERIENCE
+
+Centre for Internet Studies and Artificial Intelligence (CISAI)
+Software Developer
+July 2025 - Present
+Kerala, India
+
+- Developed production-ready AI-powered web applications using React, TypeScript, and modern frontend architecture
+- Built intelligent automation systems and agentic AI workflows that streamlined business operations
+- Integrated LLMs, APIs, and AI tooling into scalable frontend applications
+- Optimized application performance, reducing load times and improving user experience
+- Collaborated with cross-functional teams to deliver AI-enabled products from concept to deployment
+
+Ergode
+Software Developer
+January 2025 - June 2025
+India
+
+- Built scalable frontend features supporting large ecommerce catalogs and high-traffic user journeys
+- Automated business workflows, reducing manual effort by approximately 70 percent
+- Integrated API-driven systems to improve operational efficiency and data synchronization
+- Contributed to performance optimization and production stability initiatives
+
+Semtitans Digital Private Limited
+Frontend Web Developer
+November 2021 - October 2024
+Navi Mumbai
+
+- Developed 50+ Shopify and WordPress websites for D2C and ecommerce brands
+- Built custom Shopify themes, landing pages, and conversion-focused storefronts
+- Improved Core Web Vitals, page speed, and SEO performance across multiple projects
+- Integrated third-party APIs, payment gateways, and marketing tools
+- Led frontend development initiatives and reusable component architecture
+
+Biogetica
+WordPress Developer
+January 2020 - October 2021
+Mumbai
+
+- Built and maintained frontend interfaces for content-driven and ecommerce websites
+- Improved UI performance, responsiveness, and accessibility
+- Resolved UI and integration issues with minimal downtime
+
+EDUCATION
+
+Bharati Vidyapeeth
+Bachelor of Computer Applications (BCA), Computer Science
+July 2017 - July 2021
+
+CERTIFICATIONS
+
+- Building AI Agents and Agentic Workflows Specialization
+- Agentic AI with LangGraph, CrewAI, AutoGen and BeeAI
+- Generative AI Mastermind
+- Google Project Management Certificate
+- Google UX Design Professional Certificate
+- Shopify Theme Development: Online Store 2.0 and TailwindCSS
+- Shopify App Development - Vanilla PHP, GraphQL, and REST API
+- Simplified Magento 2
+- Python Bootcamp: Master Python Programming
+- React - The Complete Guide including React Router and Redux
