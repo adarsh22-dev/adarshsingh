@@ -1,53 +1,45 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
-import { 
-  Code, Sparkle, Database, FigmaLogo, PenNib
-} from '@phosphor-icons/react';
+import { Code, Sparkle, Database } from '@phosphor-icons/react';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const aboutData = [
   {
-    title: "skills",
+    title: 'skills',
     info: [
-      {
-        title: "Backend & Data",
-        icons: [Code, Sparkle, Database],
-      },
-      {
-        title: "AI / Agentic",
-        icons: [Sparkle, Code],
-      },
+      { title: 'Backend & Data', icons: [Code, Sparkle, Database] },
+      { title: 'AI / Agentic', icons: [Sparkle, Code] },
     ],
   },
   {
-    title: "awards",
+    title: 'awards',
     info: [
-      { title: "Generative AI Mastermind — Outskill", stage: "2024" },
-      { title: "Building AI Agents & Agentic Workflows Specialization", stage: "2024" },
-      { title: "Google Project Management Certificate", stage: "2023" },
-      { title: "Shopify Theme Development: Online Store 2.0 + TailwindCSS", stage: "2022" },
-      { title: "Simplified Magento 2 Certification", stage: "2022" },
+      { title: 'Generative AI Mastermind — Outskill', stage: '2024' },
+      { title: 'Building AI Agents & Agentic Workflows Specialization', stage: '2024' },
+      { title: 'Google Project Management Certificate', stage: '2023' },
+      { title: 'Shopify Theme Development: Online Store 2.0 + TailwindCSS', stage: '2022' },
+      { title: 'Simplified Magento 2 Certification', stage: '2022' },
     ],
   },
   {
-    title: "experience",
+    title: 'experience',
     info: [
-      { title: "Software Developer (AI) — CISAI", stage: "Jul 2025 – Present" },
-      { title: "Software Developer — Ergode", stage: "Jan 2025 – Jun 2025" },
-      { title: "Frontend Developer — Semtitans Digital", stage: "Nov 2021 – Oct 2024" },
-      { title: "WordPress Developer — Biogetica", stage: "Jan 2020 – Oct 2021" },
+      { title: 'Software Developer (AI) — CISAI', stage: 'Jul 2025 – Present' },
+      { title: 'Software Developer — Ergode', stage: 'Jan 2025 – Jun 2025' },
+      { title: 'Frontend Developer — Semtitans Digital', stage: 'Nov 2021 – Oct 2024' },
+      { title: 'WordPress Developer — Biogetica', stage: 'Jan 2020 – Oct 2021' },
     ],
   },
   {
-    title: "credentials",
+    title: 'credentials',
     info: [
-      { title: "BCA, Computer Science — Bharati Vidyapeeth, Mumbai", stage: "2021" },
-      { title: "Generative AI Mastermind — Outskill", stage: "2024" },
-      { title: "Google Project Management Certificate", stage: "2023" },
-      { title: "Shopify Theme Development: Online Store 2.0", stage: "2022" },
+      { title: 'BCA, Computer Science — Bharati Vidyapeeth, Mumbai', stage: '2021' },
+      { title: 'Generative AI Mastermind — Outskill', stage: '2024' },
+      { title: 'Google Project Management Certificate', stage: '2023' },
+      { title: 'Shopify Theme Development: Online Store 2.0', stage: '2022' },
     ],
   },
 ];
@@ -55,6 +47,15 @@ export const aboutData = [
 const About = () => {
   const containerRef = useRef();
   const [index, setIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 768px)');
+    setIsMobile(mq.matches);
+    const handler = (e) => setIsMobile(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
 
   useGSAP(() => {
     const tl = gsap.timeline({
@@ -62,120 +63,117 @@ const About = () => {
         trigger: containerRef.current,
         start: 'top 75%',
         end: 'bottom 20%',
-        toggleActions: 'play none none reverse'
-      }
+        toggleActions: 'play none none reverse',
+      },
     });
 
-    tl.fromTo('.about-title',
-      { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, duration: 0.8 },
-      '-=0.8'
-    )
-    .fromTo('.about-desc',
-      { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, duration: 0.8 },
-      '-=0.6'
-    )
-    .fromTo('.about-counters',
-      { opacity: 0, x: 30 },
-      { opacity: 1, x: 0, duration: 0.8, ease: 'power3.out' },
-      '-=0.6'
-    )
-    .fromTo('.about-tabs',
-      { opacity: 0, x: 30 },
-      { opacity: 1, x: 0, duration: 0.8, ease: 'power3.out' },
-      '-=0.6'
-    );
+    tl.fromTo('.about-title', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8 }, '-=0.8')
+      .fromTo('.about-desc', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8 }, '-=0.6')
+      .fromTo('.about-counters', { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.8, ease: 'power3.out' }, '-=0.6')
+      .fromTo('.about-tabs', { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.8, ease: 'power3.out' }, '-=0.6');
   }, { scope: containerRef });
-
-  const dividerStyle = {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    width: '1px',
-    height: '100%',
-    backgroundColor: 'rgba(255, 255, 255, 0.1)'
-  };
 
   return (
     <section ref={containerRef} id="about" style={{
-      padding: '100px 0',
+      padding: isMobile ? '60px 0' : '100px 0',
       minHeight: '100vh',
       display: 'flex',
       alignItems: 'center',
       position: 'relative',
-      overflow: 'hidden'
+      overflow: 'hidden',
     }}>
-      
       <div className="container" style={{
         display: 'flex',
-        flexWrap: 'wrap',
-        gap: '4rem',
+        flexDirection: isMobile ? 'column' : 'row',
+        gap: isMobile ? '2.5rem' : '4rem',
         position: 'relative',
         zIndex: 1,
-        paddingLeft: 'clamp(20px, 30vw, 0px)' // Pushes content past the absolutely positioned image
       }}>
-        
-        {/* Center: Title, Bio, Counters */}
-        <div style={{ flex: '1.2', minWidth: '350px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          <h2 className="about-title" style={{ fontSize: '2.8rem', marginBottom: '1.5rem', color: 'var(--text-main)', lineHeight: '1.1', fontWeight: 'bold' }}>
+        <div style={{
+          flex: '1.2',
+          minWidth: isMobile ? '0' : '350px',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+        }}>
+          <h2 className="about-title" style={{
+            fontSize: isMobile ? '1.8rem' : '2.8rem',
+            marginBottom: '1.5rem',
+            color: 'var(--text-main)',
+            lineHeight: '1.1',
+            fontWeight: 'bold',
+          }}>
             Building AI-powered products that <span style={{ color: '#ff3333' }}>ship</span> to production.
           </h2>
-          
-          <p className="about-desc" style={{ fontSize: '1.05rem', marginBottom: '3rem', lineHeight: '1.8', color: 'var(--text-muted)' }}>
+
+          <p className="about-desc" style={{
+            fontSize: isMobile ? '0.9rem' : '1.05rem',
+            marginBottom: '2rem',
+            lineHeight: '1.8',
+            color: 'var(--text-muted)',
+          }}>
             Full-Stack Software Engineer with 6+ years of experience building scalable web applications, ecommerce platforms, AI-powered products, and automation systems. Expertise spans AI Agents & Agentic Workflows, React.js, Next.js, TypeScript & JavaScript, Shopify Plus & Custom Theme Development, RAG Systems & AI Integrations, Frontend Architecture & Performance Optimization, and API Development & Automation. Built and optimized 50+ ecommerce stores and web applications, improved operational efficiency through intelligent automation, and developed AI-powered products and agentic workflows. Currently at CISAI working on AI-driven applications, frontend engineering, automation systems, and scalable product development. Open to AI Engineering, Full-Stack Development, Frontend Engineering, Shopify Plus Development, and remote product-based roles.
           </p>
 
-          {/* Counters Grid */}
-          <div className="about-counters" style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
-            
-              <div style={{ flex: '1', minWidth: '100px', position: 'relative', paddingRight: '1rem' }}>
-              <div style={dividerStyle}></div>
-              <div style={{ fontSize: '2.5rem', fontWeight: '800', color: '#ff3333', marginBottom: '0.5rem' }}>
-                6+
+          <div className="about-counters" style={{
+            display: 'flex',
+            gap: isMobile ? '1rem' : '2rem',
+            flexWrap: 'wrap',
+          }}>
+            {[
+              { value: '6+', label: 'Years of experience.' },
+              { value: '50+', label: 'Ecommerce stores built.' },
+              { value: '70%', label: 'Manual effort reduction.' },
+              { value: '5', label: 'Professional certifications.' },
+            ].map((stat, i) => (
+              <div key={i} style={{
+                flex: '1',
+                minWidth: isMobile ? '80px' : '100px',
+                position: 'relative',
+                paddingRight: i < 3 ? '1rem' : 0,
+              }}>
+                {i < 3 && <div style={{
+                  position: 'absolute',
+                  top: 0,
+                  right: 0,
+                  width: '1px',
+                  height: '100%',
+                  backgroundColor: 'rgba(255,255,255,0.1)',
+                }} />}
+                <div style={{
+                  fontSize: isMobile ? '1.8rem' : '2.5rem',
+                  fontWeight: '800',
+                  color: '#ff3333',
+                  marginBottom: '0.5rem',
+                }}>
+                  {stat.value}
+                </div>
+                <div style={{
+                  fontSize: '0.75rem',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px',
+                  lineHeight: '1.4',
+                  maxWidth: isMobile ? '80px' : '100px',
+                }}>
+                  {stat.label}
+                </div>
               </div>
-              <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px', lineHeight: '1.4', maxWidth: '100px' }}>
-                Years of experience.
-              </div>
-            </div>
-
-            <div style={{ flex: '1', minWidth: '100px', position: 'relative', paddingRight: '1rem' }}>
-              <div style={dividerStyle}></div>
-              <div style={{ fontSize: '2.5rem', fontWeight: '800', color: '#ff3333', marginBottom: '0.5rem' }}>
-                50+
-              </div>
-              <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px', lineHeight: '1.4', maxWidth: '100px' }}>
-                Ecommerce stores built.
-              </div>
-            </div>
-
-            <div style={{ flex: '1', minWidth: '100px', position: 'relative', paddingRight: '1rem' }}>
-              <div style={dividerStyle}></div>
-              <div style={{ fontSize: '2.5rem', fontWeight: '800', color: '#ff3333', marginBottom: '0.5rem' }}>
-                70%
-              </div>
-              <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px', lineHeight: '1.4', maxWidth: '100px' }}>
-                Manual effort reduction.
-              </div>
-            </div>
-
-            <div style={{ flex: '1', minWidth: '100px' }}>
-              <div style={{ fontSize: '2.5rem', fontWeight: '800', color: '#ff3333', marginBottom: '0.5rem' }}>
-                5
-              </div>
-              <div style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px', lineHeight: '1.4', maxWidth: '100px' }}>
-                Professional certifications.
-              </div>
-            </div>
-
+            ))}
           </div>
         </div>
 
-        {/* Right: Interactive Info Tabs */}
-        <div className="about-tabs" style={{ flex: '1', minWidth: '350px', display: 'flex', flexDirection: 'column' }}>
-          
-          {/* Tab Headers */}
-          <div style={{ display: 'flex', gap: '2rem', marginBottom: '2.5rem' }}>
+        <div className="about-tabs" style={{
+          flex: '1',
+          minWidth: isMobile ? '0' : '350px',
+          display: 'flex',
+          flexDirection: 'column',
+        }}>
+          <div style={{
+            display: 'flex',
+            gap: isMobile ? '1rem' : '2rem',
+            marginBottom: '2rem',
+            flexWrap: 'wrap',
+          }}>
             {aboutData.map((item, itemI) => (
               <div
                 key={itemI}
@@ -183,15 +181,15 @@ const About = () => {
                 style={{
                   cursor: 'pointer',
                   textTransform: 'capitalize',
-                  fontSize: '1.1rem',
+                  fontSize: isMobile ? '0.95rem' : '1.1rem',
                   fontWeight: '500',
                   color: index === itemI ? '#ff3333' : 'var(--text-main)',
                   position: 'relative',
-                  transition: 'color 0.3s'
+                  transition: 'color 0.3s',
+                  whiteSpace: 'nowrap',
                 }}
               >
                 {item.title}
-                {/* Active underline indicator */}
                 {index === itemI && (
                   <div style={{
                     position: 'absolute',
@@ -200,26 +198,27 @@ const About = () => {
                     width: '100%',
                     height: '2px',
                     backgroundColor: '#ff3333',
-                    transition: 'all 0.3s ease'
+                    transition: 'all 0.3s ease',
                   }} />
                 )}
               </div>
             ))}
           </div>
 
-          {/* Tab Content */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', minHeight: '150px' }}>
             {aboutData[index].info.map((item, itemI) => (
-              <div key={itemI} style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '1rem', color: 'var(--text-muted)' }}>
-                
-                <div style={{ fontSize: '1rem', color: 'var(--text-muted)' }}>{item.title}</div>
-                {item.stage && <div>—</div>}
+              <div key={itemI} style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                alignItems: 'center',
+                gap: '0.5rem',
+                color: 'var(--text-muted)',
+                fontSize: isMobile ? '0.85rem' : '1rem',
+              }}>
+                <div style={{ color: 'var(--text-muted)' }}>{item.title}</div>
                 {item.stage && <div style={{ color: 'var(--text-main)' }}>{item.stage}</div>}
-
-                {/* Icons (only for skills tab) */}
                 {item.icons && (
                   <div style={{ display: 'flex', gap: '0.75rem', marginLeft: '0.5rem', color: 'var(--text-main)' }}>
-                    <span style={{ marginRight: '0.5rem' }}>—</span>
                     {item.icons.map((Icon, iconI) => (
                       <div key={iconI} style={{ fontSize: '1.5rem', color: 'var(--text-main)' }}>
                         <Icon weight="fill" />
@@ -227,23 +226,11 @@ const About = () => {
                     ))}
                   </div>
                 )}
-                
               </div>
             ))}
           </div>
-
         </div>
       </div>
-      
-      {/* Mobile styling overrides */}
-      <style>{`
-        @media (max-width: 1024px) {
-          #about .container {
-            padding-left: 24px !important;
-          }
-          
-        }
-      `}</style>
     </section>
   );
 };

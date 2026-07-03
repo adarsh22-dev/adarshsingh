@@ -1,12 +1,19 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ArrowDown } from '@phosphor-icons/react';
 
 const Hero = () => {
   const containerRef = useRef();
-  const contentRef = useRef();
-  const visualRef = useRef();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 768px)');
+    setIsMobile(mq.matches);
+    const handler = (e) => setIsMobile(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
 
   useGSAP(() => {
     const tl = gsap.timeline({ delay: 2.5 });
@@ -60,15 +67,14 @@ const Hero = () => {
       display: 'flex',
       alignItems: 'center',
       overflow: 'hidden',
-      padding: '80px 0'
+      padding: isMobile ? '100px 0 60px' : '80px 0'
     }}>
-      {/* Animated gradient background */}
       <div className="hero-orb" style={{
         position: 'absolute',
         top: '-20%',
         right: '-10%',
-        width: '600px',
-        height: '600px',
+        width: isMobile ? '300px' : '600px',
+        height: isMobile ? '300px' : '600px',
         borderRadius: '50%',
         background: 'radial-gradient(circle, rgba(122,0,255,0.15), transparent 70%)',
         zIndex: 0,
@@ -78,15 +84,14 @@ const Hero = () => {
         position: 'absolute',
         bottom: '-20%',
         left: '-10%',
-        width: '500px',
-        height: '500px',
+        width: isMobile ? '250px' : '500px',
+        height: isMobile ? '250px' : '500px',
         borderRadius: '50%',
         background: 'radial-gradient(circle, rgba(0,210,255,0.1), transparent 70%)',
         zIndex: 0,
         pointerEvents: 'none'
       }} />
 
-      {/* Subtle grid */}
       <div style={{
         position: 'absolute',
         inset: 0,
@@ -99,17 +104,12 @@ const Hero = () => {
         display: 'flex',
         width: '100%',
         alignItems: 'center',
-        gap: '4rem',
+        gap: isMobile ? '2rem' : '4rem',
         position: 'relative',
         zIndex: 1,
-        flexWrap: 'wrap'
+        flexDirection: isMobile ? 'column-reverse' : 'row',
       }}>
-        {/* Left: Content */}
-        <div ref={contentRef} style={{
-          flex: '1.1',
-          minWidth: '320px'
-        }}>
-          {/* Badge */}
+        <div style={{ flex: '1.1', minWidth: isMobile ? '0' : '320px', width: '100%' }}>
           <div className="hero-badge" style={{
             display: 'inline-flex',
             alignItems: 'center',
@@ -118,9 +118,9 @@ const Hero = () => {
             borderRadius: '100px',
             background: 'rgba(0, 255, 136, 0.08)',
             border: '1px solid rgba(0, 255, 136, 0.2)',
-            fontSize: '0.8rem',
+            fontSize: isMobile ? '0.75rem' : '0.8rem',
             color: '#00ff88',
-            marginBottom: '2rem'
+            marginBottom: '1.5rem'
           }}>
             <span style={{
               width: '8px',
@@ -133,11 +133,10 @@ const Hero = () => {
             Available for opportunities
           </div>
 
-          {/* Heading */}
           <h1 className="hero-title" style={{
-            fontSize: 'clamp(2.8rem, 3.5vw, 5rem)',
+            fontSize: isMobile ? 'clamp(2rem, 8vw, 2.8rem)' : 'clamp(2.8rem, 3.5vw, 5rem)',
             lineHeight: '1.05',
-            marginBottom: '1.5rem',
+            marginBottom: '1.25rem',
             fontWeight: '800',
             letterSpacing: '-0.03em'
           }}>
@@ -154,60 +153,48 @@ const Hero = () => {
             <span style={{ color: 'var(--text-main)' }}>Senior Software Engineer</span>
           </h1>
 
-          {/* Tags */}
           <div className="hero-tags" style={{
             display: 'flex',
             flexWrap: 'wrap',
-            gap: '0.5rem',
-            marginBottom: '2rem'
+            gap: '0.4rem',
+            marginBottom: '1.5rem'
           }}>
             {tags.map((tag) => (
               <span key={tag} style={{
-                padding: '0.35rem 1rem',
+                padding: '0.3rem 0.8rem',
                 borderRadius: '8px',
                 background: 'rgba(255,255,255,0.04)',
                 border: '1px solid rgba(255,255,255,0.08)',
-                fontSize: '0.78rem',
+                fontSize: isMobile ? '0.7rem' : '0.78rem',
                 color: 'var(--text-muted)',
-                transition: 'all 0.3s ease'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(122,0,255,0.15)';
-                e.currentTarget.style.borderColor = 'rgba(122,0,255,0.3)';
-                e.currentTarget.style.color = '#fff';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'rgba(255,255,255,0.04)';
-                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)';
-                e.currentTarget.style.color = 'var(--text-muted)';
               }}>
                 {tag}
               </span>
             ))}
           </div>
 
-          {/* Description */}
           <p className="hero-desc" style={{
             color: 'var(--text-muted)',
-            fontSize: '1rem',
+            fontSize: isMobile ? '0.9rem' : '1rem',
             lineHeight: '1.8',
-            marginBottom: '2.5rem',
+            marginBottom: '2rem',
             maxWidth: '540px'
           }}>
             Full-Stack Software Engineer with 6+ years of experience building scalable web applications, ecommerce platforms, AI-powered products, and automation systems.
           </p>
 
-          {/* Buttons */}
           <div className="hero-btns" style={{
             display: 'flex',
-            gap: '1rem',
-            flexWrap: 'wrap'
+            gap: '0.75rem',
+            flexWrap: 'wrap',
+            flexDirection: isMobile ? 'column' : 'row',
           }}>
             <a href="#contact" style={{
               display: 'inline-flex',
               alignItems: 'center',
+              justifyContent: 'center',
               gap: '0.5rem',
-              padding: '0.85rem 2rem',
+              padding: isMobile ? '0.75rem 1.5rem' : '0.85rem 2rem',
               borderRadius: '12px',
               background: 'linear-gradient(135deg, #7a00ff, #00d2ff)',
               color: '#fff',
@@ -216,24 +203,17 @@ const Hero = () => {
               textDecoration: 'none',
               border: 'none',
               cursor: 'pointer',
-              transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-              boxShadow: '0 4px 20px rgba(122,0,255,0.3)'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-2px)';
-              e.currentTarget.style.boxShadow = '0 8px 30px rgba(122,0,255,0.4)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 4px 20px rgba(122,0,255,0.3)';
+              boxShadow: '0 4px 20px rgba(122,0,255,0.3)',
+              textAlign: 'center',
             }}>
               Hire Me
             </a>
             <a href="/resume.txt" download style={{
               display: 'inline-flex',
               alignItems: 'center',
+              justifyContent: 'center',
               gap: '0.5rem',
-              padding: '0.85rem 2rem',
+              padding: isMobile ? '0.75rem 1.5rem' : '0.85rem 2rem',
               borderRadius: '12px',
               background: 'rgba(255,255,255,0.05)',
               color: 'var(--text-main)',
@@ -242,27 +222,18 @@ const Hero = () => {
               textDecoration: 'none',
               border: '1px solid rgba(255,255,255,0.12)',
               cursor: 'pointer',
-              transition: 'all 0.3s ease'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = 'rgba(255,255,255,0.1)';
-              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.25)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
-              e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)';
+              textAlign: 'center',
             }}>
               Download Resume
             </a>
           </div>
 
-          {/* Stats */}
           <div className="hero-btns" style={{
             display: 'flex',
-            gap: '2.5rem',
-            marginTop: '3rem',
-            paddingTop: '2rem',
-            borderTop: '1px solid rgba(255,255,255,0.06)'
+            gap: isMobile ? '1.5rem' : '2.5rem',
+            marginTop: '2rem',
+            paddingTop: '1.5rem',
+            borderTop: '1px solid rgba(255,255,255,0.06)',
           }}>
             {[
               { value: '6+', label: 'Years Exp' },
@@ -271,7 +242,7 @@ const Hero = () => {
             ].map((stat) => (
               <div key={stat.label}>
                 <div style={{
-                  fontSize: '1.5rem',
+                  fontSize: isMobile ? '1.2rem' : '1.5rem',
                   fontWeight: '800',
                   background: 'linear-gradient(135deg, var(--accent-blue), var(--accent-violet))',
                   WebkitBackgroundClip: 'text',
@@ -282,7 +253,7 @@ const Hero = () => {
                   {stat.value}
                 </div>
                 <div style={{
-                  fontSize: '0.7rem',
+                  fontSize: isMobile ? '0.6rem' : '0.7rem',
                   color: 'var(--text-muted)',
                   textTransform: 'uppercase',
                   letterSpacing: '1px',
@@ -295,28 +266,28 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Right: 3D Visual */}
-        <div ref={visualRef} className="hero-visual" style={{
-          flex: '1',
-          minWidth: '300px',
-          height: '500px',
-          position: 'relative'
-        }}>
-          <div style={{
-            width: '100%',
-            height: '100%',
-            borderRadius: '20px',
-            overflow: 'hidden',
-            border: '1px solid rgba(255,255,255,0.06)',
-            background: 'rgba(255,255,255,0.02)',
-            backdropFilter: 'blur(10px)'
+        {!isMobile && (
+          <div className="hero-visual" style={{
+            flex: '1',
+            minWidth: '300px',
+            height: '500px',
+            position: 'relative'
           }}>
-            <iframe src='https://my.spline.design/interactivekeyboardbyabhinand-YRt3rU3PG6WvBQVpyyNYHoEB/' frameBorder='0' width='100%' height='100%' title="3D Interactive" />
+            <div style={{
+              width: '100%',
+              height: '100%',
+              borderRadius: '20px',
+              overflow: 'hidden',
+              border: '1px solid rgba(255,255,255,0.06)',
+              background: 'rgba(255,255,255,0.02)',
+              backdropFilter: 'blur(10px)'
+            }}>
+              <iframe src='https://my.spline.design/interactivekeyboardbyabhinand-YRt3rU3PG6WvBQVpyyNYHoEB/' frameBorder='0' width='100%' height='100%' title="3D Interactive" />
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
-      {/* Scroll indicator */}
       <div style={{
         position: 'absolute',
         bottom: '2rem',
