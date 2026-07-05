@@ -42,21 +42,26 @@ const Hero = () => {
       { opacity: 0, y: 20 },
       { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' },
       '-=0.3'
-    )
-    .fromTo('.hero-visual',
-      { opacity: 0, scale: 0.8, filter: 'blur(20px)' },
-      { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 1.5, ease: 'power3.out' },
-      '-=1'
     );
 
-    gsap.to('.hero-orb', {
-      y: -40,
-      duration: 4,
-      repeat: -1,
-      yoyo: true,
-      ease: 'power1.inOut',
-      stagger: 0.8
-    });
+    if (containerRef.current?.querySelector('.hero-visual')) {
+      tl.fromTo('.hero-visual',
+        { opacity: 0, scale: 0.8, filter: 'blur(20px)' },
+        { opacity: 1, scale: 1, filter: 'blur(0px)', duration: 1.5, ease: 'power3.out' },
+        '-=1'
+      );
+    }
+
+    if (containerRef.current?.querySelector('.hero-orb')) {
+      gsap.to('.hero-orb', {
+        y: -40,
+        duration: 4,
+        repeat: -1,
+        yoyo: true,
+        ease: 'power1.inOut',
+        stagger: 0.8
+      });
+    }
   }, { scope: containerRef });
 
   const tags = ['Full-Stack Engineer', 'AI Engineer', 'Shopify Plus Expert', 'React & Next.js', 'TypeScript', 'AI Agents', 'RAG & Automation'];

@@ -89,21 +89,23 @@ const Projects = () => {
   }, [step]);
 
   useGSAP(() => {
-    gsap.fromTo('.project-card',
-      { opacity: 0, y: 50, scale: 0.9 },
-      {
-        opacity: 1, y: 0, scale: 1,
-        stagger: 0.15,
-        duration: 0.8,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top 70%',
-          end: 'bottom 20%',
-          toggleActions: 'play none none reverse'
+    if (containerRef.current?.querySelector('.project-card')) {
+      gsap.fromTo('.project-card',
+        { opacity: 0, y: 50, scale: 0.9 },
+        {
+          opacity: 1, y: 0, scale: 1,
+          stagger: 0.15,
+          duration: 0.8,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: 'top 70%',
+            end: 'bottom 20%',
+            toggleActions: 'play none none reverse'
+          }
         }
-      }
-    );
+      );
+    }
   }, { scope: containerRef });
 
   return (
