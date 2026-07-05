@@ -147,6 +147,40 @@ p {
   right: -50px;
 }
 
+/* Mobile fullpage snap scroll */
+@media (max-width: 768px) {
+  html, body {
+    overflow: hidden;
+    height: 100%;
+  }
+
+  #root {
+    height: 100%;
+  }
+
+  .fullpage-container {
+    height: 100dvh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .fullpage-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .snap-section {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  .snap-section > section,
+  .snap-section > footer {
+    min-height: 100dvh !important;
+  }
+}
+
 /* Hide Spline watermark */
 .spline-watermark {
   display: none !important;
