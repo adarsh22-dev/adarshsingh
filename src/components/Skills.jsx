@@ -3,7 +3,6 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import { CaretLeft, CaretRight } from '@phosphor-icons/react';
-import SkillsScene from './SkillsScene';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -251,8 +250,6 @@ const Skills = () => {
       justifyContent: 'center',
       minHeight: '100vh',
     }}>
-      <SkillsScene />
-
       <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         <div className="skills-header" style={{
           textAlign: 'center',
