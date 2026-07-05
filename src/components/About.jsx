@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
@@ -46,8 +46,10 @@ export const aboutData = [
 
 const About = () => {
   const containerRef = useRef();
+  const tabsRef = useRef();
   const [index, setIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [tabTouchStart, setTabTouchStart] = useState(null);
 
   useEffect(() => {
     const mq = window.matchMedia('(max-width: 768px)');
@@ -56,6 +58,22 @@ const About = () => {
     mq.addEventListener('change', handler);
     return () => mq.removeEventListener('change', handler);
   }, []);
+
+  const handleTabTouchStart = (e) => setTabTouchStart(e.touches[0].clientX);
+  const handleTabTouchEnd = (e) => {
+    if (tabTouchStart === null) return;
+    const diff = tabTouchStart - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      const dir = diff > 0 ? 1 : -1;
+      const next = Math.max(0, Math.min(index + dir, aboutData.length - 1));
+      setIndex(next);
+      if (tabsRef.current) {
+        const tab = tabsRef.current.children[next];
+        if (tab) tab.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      }
+    }
+    setTabTouchStart(null);
+  };
 
   useGSAP(() => {
     const tl = gsap.timeline({
@@ -116,9 +134,9 @@ const About = () => {
           </p>
 
           <div className="about-counters" style={{
-            display: 'flex',
+            display: 'grid',
+            gridTemplateColumns: isMobile ? '1fr 1fr' : 'repeat(4, 1fr)',
             gap: isMobile ? '1rem' : '2rem',
-            flexWrap: 'wrap',
           }}>
             {[
               { value: '6+', label: 'Years of experience.' },
@@ -127,12 +145,14 @@ const About = () => {
               { value: '5', label: 'Professional certifications.' },
             ].map((stat, i) => (
               <div key={i} style={{
-                flex: '1',
-                minWidth: isMobile ? '80px' : '100px',
                 position: 'relative',
-                paddingRight: i < 3 ? '1rem' : 0,
+                paddingRight: !isMobile && i < 3 ? '1rem' : 0,
+                textAlign: isMobile ? 'center' : 'left',
+                padding: isMobile ? '0.75rem 0' : 0,
+                background: isMobile ? 'rgba(255,255,255,0.02)' : 'none',
+                borderRadius: isMobile ? '12px' : 0,
               }}>
-                {i < 3 && <div style={{
+                {!isMobile && i < 3 && <div style={{
                   position: 'absolute',
                   top: 0,
                   right: 0,
@@ -141,19 +161,18 @@ const About = () => {
                   backgroundColor: 'rgba(255,255,255,0.1)',
                 }} />}
                 <div style={{
-                  fontSize: isMobile ? '1.8rem' : '2.5rem',
+                  fontSize: isMobile ? '1.5rem' : '2.5rem',
                   fontWeight: '800',
                   color: '#ff3333',
-                  marginBottom: '0.5rem',
+                  marginBottom: '0.35rem',
                 }}>
                   {stat.value}
                 </div>
                 <div style={{
-                  fontSize: '0.75rem',
+                  fontSize: isMobile ? '0.65rem' : '0.75rem',
                   textTransform: 'uppercase',
                   letterSpacing: '1px',
                   lineHeight: '1.4',
-                  maxWidth: isMobile ? '80px' : '100px',
                 }}>
                   {stat.label}
                 </div>
@@ -168,12 +187,18 @@ const About = () => {
           display: 'flex',
           flexDirection: 'column',
         }}>
-          <div style={{
-            display: 'flex',
-            gap: isMobile ? '1rem' : '2rem',
-            marginBottom: '2rem',
-            flexWrap: 'wrap',
-          }}>
+          <div
+            ref={tabsRef}
+            style={{
+              display: 'flex',
+              gap: isMobile ? '0.75rem' : '2rem',
+              marginBottom: '2rem',
+              overflowX: isMobile ? 'auto' : 'visible',
+              paddingBottom: isMobile ? '4px' : '0',
+              WebkitOverflowScrolling: 'touch',
+            }}
+            className="about-tab-labels"
+          >
             {aboutData.map((item, itemI) => (
               <div
                 key={itemI}
@@ -181,12 +206,14 @@ const About = () => {
                 style={{
                   cursor: 'pointer',
                   textTransform: 'capitalize',
-                  fontSize: isMobile ? '0.95rem' : '1.1rem',
+                  fontSize: isMobile ? '0.85rem' : '1.1rem',
                   fontWeight: '500',
                   color: index === itemI ? '#ff3333' : 'var(--text-main)',
                   position: 'relative',
                   transition: 'color 0.3s',
                   whiteSpace: 'nowrap',
+                  flex: isMobile ? '0 0 auto' : '',
+                  padding: isMobile ? '0.5rem 0.25rem' : 0,
                 }}
               >
                 {item.title}
@@ -205,7 +232,20 @@ const About = () => {
             ))}
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', minHeight: '150px' }}>
+          <div
+            onTouchStart={isMobile ? handleTabTouchStart : undefined}
+            onTouchEnd={isMobile ? handleTabTouchEnd : undefined}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '1.5rem',
+              minHeight: isMobile ? '200px' : '150px',
+              transition: 'opacity 0.3s ease',
+              padding: isMobile ? '0.5rem' : 0,
+              background: isMobile ? 'rgba(255,255,255,0.015)' : 'none',
+              borderRadius: isMobile ? '16px' : 0,
+            }}
+          >
             {aboutData[index].info.map((item, itemI) => (
               <div key={itemI} style={{
                 display: 'flex',
@@ -213,10 +253,11 @@ const About = () => {
                 alignItems: 'center',
                 gap: '0.5rem',
                 color: 'var(--text-muted)',
-                fontSize: isMobile ? '0.85rem' : '1rem',
+                fontSize: isMobile ? '0.82rem' : '1rem',
+                padding: isMobile ? '0.25rem 0' : 0,
               }}>
                 <div style={{ color: 'var(--text-muted)' }}>{item.title}</div>
-                {item.stage && <div style={{ color: 'var(--text-main)' }}>{item.stage}</div>}
+                {item.stage && <div style={{ color: 'var(--text-main)', fontSize: isMobile ? '0.78rem' : '1rem' }}>{item.stage}</div>}
                 {item.icons && (
                   <div style={{ display: 'flex', gap: '0.75rem', marginLeft: '0.5rem', color: 'var(--text-main)' }}>
                     {item.icons.map((Icon, iconI) => (
@@ -228,9 +269,21 @@ const About = () => {
                 )}
               </div>
             ))}
+            {isMobile && (
+              <div style={{
+                textAlign: 'center',
+                marginTop: '0.75rem',
+                fontSize: '0.7rem',
+                color: 'var(--text-muted)',
+                opacity: 0.5,
+              }}>
+                ← Swipe →
+              </div>
+            )}
           </div>
         </div>
       </div>
+      <style>{`.about-tab-labels::-webkit-scrollbar { display: none; }`}</style>
     </section>
   );
 };

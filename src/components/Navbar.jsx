@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { List, X } from '@phosphor-icons/react';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const menuRef = useRef();
 
   useEffect(() => {
     const mq = window.matchMedia('(max-width: 768px)');
@@ -19,6 +20,26 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (!menuOpen || !isMobile) return;
+    const handleClickOutside = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [menuOpen, isMobile]);
+
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [menuOpen]);
 
   const navLinks = [
     { id: 'about', title: 'About' },
@@ -38,6 +59,8 @@ const Navbar = () => {
   };
 
   return (
+    <>
+      <style>{`@keyframes menuFadeIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }`}</style>
     <nav style={{
       position: 'fixed',
       top: 0,
@@ -84,21 +107,26 @@ const Navbar = () => {
             </button>
 
             {menuOpen && (
-              <div style={{
-                position: 'fixed',
-                top: '60px',
-                left: 0,
-                width: '100%',
-                background: 'rgba(5,5,15,0.95)',
-                backdropFilter: 'blur(16px)',
-                borderBottom: '1px solid rgba(255,255,255,0.05)',
-                padding: '1rem 0',
-                zIndex: 99,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: '0.25rem',
-              }}>
+              <div
+                ref={menuRef}
+                style={{
+                  position: 'fixed',
+                  top: '60px',
+                  left: 0,
+                  width: '100%',
+                  background: 'rgba(5,5,15,0.96)',
+                  backdropFilter: 'blur(20px)',
+                  borderBottom: '1px solid rgba(255,255,255,0.06)',
+                  padding: '0.75rem 0',
+                  zIndex: 99,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  gap: '0.15rem',
+                  boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
+                  animation: 'menuFadeIn 0.2s ease',
+                }}
+              >
                 {navLinks.map((link) => (
                   <a
                     key={link.id}
@@ -106,9 +134,14 @@ const Navbar = () => {
                     onClick={() => setMenuOpen(false)}
                     style={{
                       ...linkStyle,
-                      padding: '0.75rem 2rem',
+                      padding: '0.7rem 2rem',
                       width: '100%',
                       textAlign: 'center',
+                      transition: 'background 0.2s, color 0.2s',
+                    }}
+                    onTouchEnd={(e) => {
+                      e.currentTarget.style.background = 'rgba(122,0,255,0.1)';
+                      setTimeout(() => { e.currentTarget.style.background = ''; }, 200);
                     }}
                   >
                     {link.title}
@@ -147,6 +180,7 @@ const Navbar = () => {
         )}
       </div>
     </nav>
+    </>
   );
 };
 

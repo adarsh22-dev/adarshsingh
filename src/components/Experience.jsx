@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   VerticalTimeline,
   VerticalTimelineElement,
@@ -62,28 +62,39 @@ const experiences = [
   },
 ];
 
-const ExperienceCard = ({ experience }) => {
+const ExperienceCard = ({ experience, isMobile }) => {
   return (
     <VerticalTimelineElement
-      contentStyle={{ background: "#1d1836", color: "#fff" }}
+      contentStyle={{
+        background: "#1d1836",
+        color: "#fff",
+        padding: isMobile ? '1.25rem' : undefined,
+      }}
       contentArrowStyle={{ borderRight: "7px solid #232631" }}
       date={experience.date}
+      dateClassName={isMobile ? "exp-date-mobile" : ""}
       iconStyle={{ background: experience.iconBg, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
       icon={
         <div style={{ display: 'flex', height: '100%', width: '100%', alignItems: 'center', justifyContent: 'center' }}>
-          <Briefcase size={22} color="#00d2ff" weight="fill" />
+          <Briefcase size={isMobile ? 18 : 22} color="#00d2ff" weight="fill" />
         </div>
       }
     >
       <div>
-        <h3 style={{ fontSize: '18px', fontWeight: 'bold', color: '#fff', margin: 0, lineHeight: '1.3' }}>{experience.title}</h3>
-        <p style={{ margin: '4px 0 0 0', color: '#00d2ff', fontSize: '14px', fontWeight: '600' }}>
+        <h3 style={{ fontSize: isMobile ? '15px' : '18px', fontWeight: 'bold', color: '#fff', margin: 0, lineHeight: '1.3' }}>{experience.title}</h3>
+        <p style={{ margin: '4px 0 0 0', color: '#00d2ff', fontSize: isMobile ? '12px' : '14px', fontWeight: '600' }}>
           {experience.companyName} · {experience.location}
         </p>
       </div>
-      <ul style={{ marginTop: '1.25rem', marginLeft: '1.25rem', listStyleType: 'disc' }}>
+      <ul style={{ marginTop: '1rem', marginLeft: '1rem', paddingLeft: '0.5rem', listStyleType: 'disc' }}>
         {experience.points.map((point, index) => (
-          <li key={`point-${index}`} style={{ fontSize: '13px', letterSpacing: '0.02em', color: 'rgba(255,255,255,0.75)', marginBottom: '0.5rem', lineHeight: '1.5' }}>
+          <li key={`point-${index}`} style={{
+            fontSize: isMobile ? '12px' : '13px',
+            letterSpacing: '0.02em',
+            color: 'rgba(255,255,255,0.75)',
+            marginBottom: '0.4rem',
+            lineHeight: '1.5',
+          }}>
             {point}
           </li>
         ))}
@@ -93,25 +104,48 @@ const ExperienceCard = ({ experience }) => {
 };
 
 const Experience = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 768px)');
+    setIsMobile(mq.matches);
+    const handler = (e) => setIsMobile(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+
   return (
-    <section id="experience" style={{ padding: '100px 0', minHeight: '100vh', position: 'relative' }}>
+    <section id="experience" style={{
+      padding: isMobile ? '60px 0' : '100px 0',
+      minHeight: isMobile ? 'auto' : '100vh',
+      position: 'relative',
+    }}>
       <div className="container">
-        <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-          <p style={{ textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--text-muted)', fontSize: '1rem', margin: 0 }}>
+        <div style={{ textAlign: 'center', marginBottom: isMobile ? '2rem' : '4rem' }}>
+          <p style={{ textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--text-muted)', fontSize: isMobile ? '0.85rem' : '1rem', margin: 0 }}>
             What I have done so far
           </p>
-          <h2 style={{ fontSize: '3.5rem', fontWeight: '800', color: 'var(--text-main)', margin: 0 }}>
+          <h2 style={{ fontSize: isMobile ? '2.5rem' : '3.5rem', fontWeight: '800', color: 'var(--text-main)', margin: '0.5rem 0 0' }}>
             Work Experience.
           </h2>
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column', marginTop: '2rem' }}>
-          <VerticalTimeline>
+        <div style={{ display: 'flex', flexDirection: 'column', marginTop: '1rem' }}>
+          <VerticalTimeline lineColor="rgba(255,255,255,0.08)">
             {experiences.map((experience, index) => (
-              <ExperienceCard key={index} experience={experience} />
+              <ExperienceCard key={index} experience={experience} isMobile={isMobile} />
             ))}
           </VerticalTimeline>
         </div>
       </div>
+      {isMobile && (
+        <style>{`
+          .exp-date-mobile { font-size: 11px !important; padding: 0 0 0.5rem 0 !important; color: var(--text-muted) !important; }
+          .vertical-timeline-element-content { margin-left: 45px !important; }
+          .vertical-timeline-element-icon { width: 35px !important; height: 35px !important; left: 0 !important; }
+          .vertical-timeline::before { left: 17px !important; }
+          .vertical-timeline-element-date { font-size: 11px !important; }
+        `}</style>
+      )}
     </section>
   );
 };

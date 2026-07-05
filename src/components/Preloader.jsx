@@ -6,6 +6,13 @@ const Preloader = () => {
   const container = useRef();
   const progressBar = useRef();
   const [isComplete, setIsComplete] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 0);
+
+  useEffect(() => {
+    const update = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
 
   useGSAP(() => {
     const tl = gsap.timeline({
@@ -14,13 +21,11 @@ const Preloader = () => {
       }
     });
 
-    // Fill progress bar
     tl.to(progressBar.current, {
       width: '100%',
       duration: 2,
       ease: 'power2.out'
     })
-    // Fade out preloader
     .to(container.current, {
       opacity: 0,
       scale: 0.9,
@@ -31,6 +36,8 @@ const Preloader = () => {
   }, { scope: container });
 
   if (isComplete) return null;
+
+  const isMobile = windowWidth <= 768;
 
   return (
     <div 
@@ -47,10 +54,10 @@ const Preloader = () => {
         color: '#f0f0ff'
       }}
     >
-      <h1 className="glowing-text" style={{ fontSize: '3rem', marginBottom: '2rem' }}>Adarsh</h1>
+      <h1 className="glowing-text" style={{ fontSize: isMobile ? '2rem' : '3rem', marginBottom: '2rem' }}>Adarsh</h1>
       <div 
         style={{
-          width: '300px',
+          width: isMobile ? '200px' : '300px',
           height: '4px',
           backgroundColor: 'rgba(255, 255, 255, 0.1)',
           borderRadius: '4px',

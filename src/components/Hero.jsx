@@ -155,18 +155,23 @@ const Hero = () => {
 
           <div className="hero-tags" style={{
             display: 'flex',
-            flexWrap: 'wrap',
+            flexWrap: isMobile ? 'nowrap' : 'wrap',
             gap: '0.4rem',
-            marginBottom: '1.5rem'
+            marginBottom: '1.5rem',
+            overflowX: isMobile ? 'auto' : 'visible',
+            paddingBottom: isMobile ? '4px' : '0',
+            WebkitOverflowScrolling: 'touch',
           }}>
             {tags.map((tag) => (
               <span key={tag} style={{
+                flex: isMobile ? '0 0 auto' : '',
                 padding: '0.3rem 0.8rem',
                 borderRadius: '8px',
                 background: 'rgba(255,255,255,0.04)',
                 border: '1px solid rgba(255,255,255,0.08)',
                 fontSize: isMobile ? '0.7rem' : '0.78rem',
                 color: 'var(--text-muted)',
+                whiteSpace: 'nowrap',
               }}>
                 {tag}
               </span>
@@ -230,19 +235,20 @@ const Hero = () => {
 
           <div className="hero-btns" style={{
             display: 'flex',
-            gap: isMobile ? '1.5rem' : '2.5rem',
+            gap: isMobile ? '1rem' : '2.5rem',
             marginTop: '2rem',
             paddingTop: '1.5rem',
             borderTop: '1px solid rgba(255,255,255,0.06)',
+            justifyContent: isMobile ? 'space-between' : 'flex-start',
           }}>
             {[
               { value: '6+', label: 'Years Exp' },
               { value: '50+', label: 'Projects' },
               { value: '70%', label: 'Effort Reduction' }
             ].map((stat) => (
-              <div key={stat.label}>
+              <div key={stat.label} style={{ flex: isMobile ? 1 : '', textAlign: isMobile ? 'center' : 'left' }}>
                 <div style={{
-                  fontSize: isMobile ? '1.2rem' : '1.5rem',
+                  fontSize: isMobile ? '1.1rem' : '1.5rem',
                   fontWeight: '800',
                   background: 'linear-gradient(135deg, var(--accent-blue), var(--accent-violet))',
                   WebkitBackgroundClip: 'text',
@@ -253,7 +259,7 @@ const Hero = () => {
                   {stat.value}
                 </div>
                 <div style={{
-                  fontSize: isMobile ? '0.6rem' : '0.7rem',
+                  fontSize: isMobile ? '0.55rem' : '0.7rem',
                   color: 'var(--text-muted)',
                   textTransform: 'uppercase',
                   letterSpacing: '1px',
@@ -306,6 +312,7 @@ const Hero = () => {
       }}>
         <ArrowDown size={16} />
       </div>
+      <style>{`.hero-tags::-webkit-scrollbar { display: none; }`}</style>
     </section>
   );
 };

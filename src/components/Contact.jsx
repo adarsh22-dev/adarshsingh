@@ -99,18 +99,18 @@ const Contact = () => {
           <p style={{
             color: 'var(--text-muted)',
             marginBottom: '2rem',
-            fontSize: isMobile ? '0.85rem' : '0.95rem',
+            fontSize: isMobile ? '0.82rem' : '0.95rem',
             lineHeight: '1.6',
+            wordBreak: 'break-all',
           }}>
             adarshsingh55555ac@gmail.com<br />
             +91 8828186537<br />
-            <a href="https://linkedin.com/in/adarshvinodkumarsingh" target="_blank" rel="noreferrer" style={{ color: 'var(--accent-blue)', textDecoration: 'none' }}>LinkedIn</a>
-            {' | '}
-            <a href="https://github.com/adarsh22-dev" target="_blank" rel="noreferrer" style={{ color: 'var(--accent-blue)', textDecoration: 'none' }}>GitHub</a>
-            {' | '}
-            <a href="https://adarshsinghportfoliofive.vercel.app/" target="_blank" rel="noreferrer" style={{ color: 'var(--accent-blue)', textDecoration: 'none' }}>Portfolio</a>
-            {' | '}
-            <a href="/resume.txt" target="_blank" rel="noreferrer" style={{ color: 'var(--accent-blue)', textDecoration: 'none' }}>Resume</a>
+            <span style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem 0.6rem', marginTop: '0.5rem' }}>
+              <a href="https://linkedin.com/in/adarshvinodkumarsingh" target="_blank" rel="noreferrer" style={{ color: 'var(--accent-blue)', textDecoration: 'none' }}>LinkedIn</a>
+              <a href="https://github.com/adarsh22-dev" target="_blank" rel="noreferrer" style={{ color: 'var(--accent-blue)', textDecoration: 'none' }}>GitHub</a>
+              <a href="https://adarshsinghportfoliofive.vercel.app/" target="_blank" rel="noreferrer" style={{ color: 'var(--accent-blue)', textDecoration: 'none' }}>Portfolio</a>
+              <a href="/resume.txt" target="_blank" rel="noreferrer" style={{ color: 'var(--accent-blue)', textDecoration: 'none' }}>Resume</a>
+            </span>
           </p>
 
           <form ref={formRef} onSubmit={handleSubmit} style={{
@@ -182,8 +182,10 @@ const Contact = () => {
         <div className="contact-right" style={{
           flex: '1.5',
           minWidth: isMobile ? '0' : '350px',
-          height: isMobile ? '300px' : '600px',
+          height: isMobile ? '250px' : '600px',
           order: isMobile ? -1 : 0,
+          borderRadius: '24px',
+          overflow: 'hidden',
         }}>
           <EarthCanvas />
         </div>
