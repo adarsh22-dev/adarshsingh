@@ -109,7 +109,7 @@ const Contact = () => {
               <a href="https://linkedin.com/in/adarshvinodkumarsingh" target="_blank" rel="noreferrer" style={{ color: 'var(--accent-blue)', textDecoration: 'none' }}>LinkedIn</a>
               <a href="https://github.com/adarsh22-dev" target="_blank" rel="noreferrer" style={{ color: 'var(--accent-blue)', textDecoration: 'none' }}>GitHub</a>
               <a href="https://adarshsinghportfoliofive.vercel.app/" target="_blank" rel="noreferrer" style={{ color: 'var(--accent-blue)', textDecoration: 'none' }}>Portfolio</a>
-              <a href="/resume.txt" target="_blank" rel="noreferrer" style={{ color: 'var(--accent-blue)', textDecoration: 'none' }}>Resume</a>
+              <a href="/Adarsh_Singh_Resume.pdf" target="_blank" rel="noreferrer" style={{ color: 'var(--accent-blue)', textDecoration: 'none' }}>Resume</a>
             </span>
           </p>
 

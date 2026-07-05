@@ -213,7 +213,7 @@ const Hero = () => {
             }}>
               Hire Me
             </a>
-            <a href="/resume.txt" download style={{
+            <a href="/Adarsh_Singh_Resume.pdf" download style={{
               display: 'inline-flex',
               alignItems: 'center',
               justifyContent: 'center',
