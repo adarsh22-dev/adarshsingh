@@ -46,6 +46,7 @@ const Particles = ({ count = 80 }) => {
     const palette = [
       new THREE.Color('#00d2ff'),
       new THREE.Color('#7a00ff'),
+      new THREE.Color('#00ff88'),
     ];
     for (let i = 0; i < count; i++) {
       pos[i * 3] = (Math.random() - 0.5) * 16;
@@ -103,9 +104,9 @@ const SceneContent = () => (
     <Particles count={100} />
     <FloatingShape position={[-4, 2, -2]} color="#7a00ff" shape="octahedron" speed={0.8} />
     <FloatingShape position={[4, -1.5, -1]} color="#00d2ff" shape="tetrahedron" speed={1.2} />
-    <FloatingShape position={[-3, -2, -3]} color="#7a00ff" shape="torus" speed={0.6} />
-    <FloatingShape position={[3.5, 1.5, -2.5]} color="#00d2ff" shape="icosahedron" speed={0.9} />
-    <FloatingShape position={[0, 3, -4]} color="#7a00ff" shape="box" speed={0.7} />
+    <FloatingShape position={[-3, -2, -3]} color="#00ff88" shape="torus" speed={0.6} />
+    <FloatingShape position={[3.5, 1.5, -2.5]} color="#7a00ff" shape="icosahedron" speed={0.9} />
+    <FloatingShape position={[0, 3, -4]} color="#00d2ff" shape="box" speed={0.7} />
   </group>
 );
 
