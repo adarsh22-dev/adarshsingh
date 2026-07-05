@@ -132,7 +132,7 @@ const Certifications = () => {
           </h2>
         </div>
 
-        <div style={{ position: 'relative', padding: isMobile ? '0 0' : '0 40px' }}>
+        <div style={{ position: 'relative', padding: isMobile ? '0 12px' : '0 40px' }}>
           {/* Arrows (desktop only) */}
           {!isMobile && (
             <>
@@ -198,10 +198,11 @@ const Certifications = () => {
             onTouchEnd={handleTouchEnd}
             style={{
               display: 'flex',
-              gap: '1.5rem',
+              gap: '1rem',
               overflowX: 'auto',
               scrollSnapType: 'x mandatory',
-              padding: isMobile ? '10px 0' : '20px 10px',
+              scrollPadding: isMobile ? '12px' : '0',
+              padding: isMobile ? '10px 4px' : '20px 10px',
               scrollbarWidth: 'none',
             }}
             className="cert-slider"
@@ -211,9 +212,9 @@ const Certifications = () => {
                 key={index}
                 style={{
                   flex: '0 0 auto',
-                  width: isMobile ? '180px' : '220px',
+                  width: isMobile ? '160px' : '220px',
                   scrollSnapAlign: 'center',
-                  padding: isMobile ? '1rem' : '1.5rem',
+                  padding: isMobile ? '0.85rem' : '1.5rem',
                   background: index === currentIndex
                     ? 'linear-gradient(135deg, rgba(122,0,255,0.15), rgba(0,210,255,0.05))'
                     : 'rgba(255,255,255,0.03)',
@@ -231,8 +232,8 @@ const Certifications = () => {
                 }}
               >
                 <div style={{
-                  width: isMobile ? '140px' : '160px',
-                  height: isMobile ? '140px' : '160px',
+                  width: isMobile ? '120px' : '160px',
+                  height: isMobile ? '120px' : '160px',
                   borderRadius: '16px',
                   overflow: 'hidden',
                   display: 'flex',

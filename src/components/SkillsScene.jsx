@@ -61,12 +61,12 @@ function Ball({ imgUrl, position, scale, floatSpeed, floatRot, floatInt }) {
 }
 
 function SkillsScene({ isMobile }) {
-  const cols = isMobile ? 4 : 7;
-  const spacing = isMobile ? 1.8 : 2.2;
+  const cols = isMobile ? 5 : 7;
+  const spacing = isMobile ? 1.3 : 2.2;
   const startX = -(cols - 1) * spacing / 2;
-  const scaleVal = isMobile ? 1.2 : 1.8;
+  const scaleVal = isMobile ? 0.8 : 1.8;
   const maxRow = Math.ceil(techs.length / cols) - 1;
-  const centerY = maxRow * -spacing / 2 + 1.2;
+  const centerY = isMobile ? maxRow * spacing / 2 : maxRow * -spacing / 2 + 1.2;
 
   const rows = useMemo(() => {
     const r = [];
@@ -74,11 +74,11 @@ function SkillsScene({ isMobile }) {
       const col = i % cols;
       const row = Math.floor(i / cols);
       const seed = i * 137;
-      const xOff = (seededRandom(seed) - 0.5) * 0.3;
-      const yOff = (seededRandom(seed + 1) - 0.5) * 0.3;
+      const xOff = (seededRandom(seed) - 0.5) * 0.2;
+      const yOff = (seededRandom(seed + 1) - 0.5) * 0.2;
       r.push({
         ...t,
-        position: [startX + col * spacing + xOff, row * -spacing + centerY + yOff, (seededRandom(seed + 2) - 0.5) * 0.4],
+        position: [startX + col * spacing + xOff, isMobile ? centerY - row * spacing + yOff : row * -spacing + centerY + yOff, (seededRandom(seed + 2) - 0.5) * 0.4],
         key: t.name,
         floatSpeed: 0.6 + seededRandom(seed + 3) * 0.8,
         floatRot: 0.5 + seededRandom(seed + 4) * 0.8,
@@ -88,7 +88,7 @@ function SkillsScene({ isMobile }) {
     return r;
   }, []);
 
-  const camZ = isMobile ? 10 : 8;
+  const camZ = isMobile ? 9 : 8;
 
   return (
     <Canvas
