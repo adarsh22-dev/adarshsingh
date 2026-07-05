@@ -281,18 +281,17 @@ const Certifications = () => {
   }, []);
 
   useGSAP(() => {
-    gsap.fromTo('.cert-header',
-      { opacity: 0, y: 30 },
-      {
+    if (containerRef.current?.querySelector('.cert-header')) {
+      gsap.to('.cert-header', {
         opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
         scrollTrigger: {
           trigger: containerRef.current,
-          start: 'top 75%',
+          start: 'top 85%',
           toggleActions: 'play none none reverse',
         },
-      }
-    );
-  }, { scope: containerRef });
+      });
+    }
+  }, { scope: containerRef, dependencies: [isMobile] });
 
   return (
     <section
