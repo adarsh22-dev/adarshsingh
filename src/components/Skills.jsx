@@ -1,7 +1,9 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
+import { CaretLeft, CaretRight } from '@phosphor-icons/react';
+import SkillsScene from './SkillsScene';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -104,6 +106,7 @@ const SkillBadge = ({ tech, color, size }) => {
         alignItems: 'center',
         gap: '0.6rem',
         width: size + 24,
+        flexShrink: 0,
       }}
     >
       <div
@@ -165,10 +168,12 @@ const SkillBadge = ({ tech, color, size }) => {
 
 const Skills = () => {
   const containerRef = useRef();
+  const sliderRef = useRef();
   const [isMobile, setIsMobile] = useState(
     () => typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches
   );
   const [activeCategory, setActiveCategory] = useState('All');
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     const mq = window.matchMedia('(max-width: 768px)');
@@ -176,6 +181,28 @@ const Skills = () => {
     mq.addEventListener('change', handler);
     return () => mq.removeEventListener('change', handler);
   }, []);
+
+  const visibleCategories =
+    activeCategory === 'All'
+      ? skillCategories
+      : skillCategories.filter((c) => c.name === activeCategory);
+
+  const allTechs = visibleCategories.flatMap((cat) =>
+    cat.techs.map((tech) => ({ tech, color: cat.color }))
+  );
+
+  const badgeSize = isMobile ? 64 : 92;
+  const visibleCount = isMobile ? 3 : 5;
+  const maxIndex = Math.max(0, allTechs.length - visibleCount);
+  const isAtStart = currentIndex === 0;
+  const isAtEnd = currentIndex >= maxIndex || allTechs.length <= visibleCount;
+
+  const scrollToIndex = useCallback((i) => {
+    setCurrentIndex(Math.max(0, Math.min(i, maxIndex)));
+  }, [maxIndex]);
+
+  const handlePrev = () => scrollToIndex(currentIndex - 1);
+  const handleNext = () => scrollToIndex(currentIndex + 1);
 
   useGSAP(() => {
     gsap.fromTo('.skills-header',
@@ -213,12 +240,7 @@ const Skills = () => {
     );
   }, { scope: containerRef, dependencies: [activeCategory, isMobile] });
 
-  const visibleCategories =
-    activeCategory === 'All'
-      ? skillCategories
-      : skillCategories.filter((c) => c.name === activeCategory);
-
-  const badgeSize = isMobile ? 64 : 92;
+  const sliderWidth = visibleCount * (badgeSize + 24 + 16);
 
   return (
     <section ref={containerRef} id="skills" style={{
@@ -226,30 +248,10 @@ const Skills = () => {
       padding: isMobile ? '60px 0' : '100px 0',
       display: 'flex',
       flexDirection: 'column',
-      justifyContent: 'center'
+      justifyContent: 'center',
+      minHeight: '100vh',
     }}>
-      <div style={{
-        position: 'absolute',
-        top: '10%',
-        right: '-10%',
-        width: '500px',
-        height: '500px',
-        borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(122,0,255,0.08), transparent 70%)',
-        zIndex: 0,
-        pointerEvents: 'none'
-      }} />
-      <div style={{
-        position: 'absolute',
-        bottom: '10%',
-        left: '-10%',
-        width: '400px',
-        height: '400px',
-        borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(0,210,255,0.06), transparent 70%)',
-        zIndex: 0,
-        pointerEvents: 'none'
-      }} />
+      <SkillsScene />
 
       <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         <div className="skills-header" style={{
@@ -298,7 +300,7 @@ const Skills = () => {
               <button
                 key={catName}
                 className="category-chip"
-                onClick={() => setActiveCategory(catName)}
+                onClick={() => { setActiveCategory(catName); setCurrentIndex(0); }}
                 style={{
                   padding: '0.4rem 1.2rem',
                   borderRadius: '100px',
@@ -310,6 +312,7 @@ const Skills = () => {
                   cursor: 'pointer',
                   transition: 'all 0.3s ease',
                   fontFamily: 'inherit',
+                  backdropFilter: 'blur(8px)',
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.background = `${color}15`;
@@ -328,62 +331,105 @@ const Skills = () => {
           })}
         </div>
 
-        {isMobile ? (
-          <div className="skills-mobile-slider" style={{
-            overflowX: 'auto',
-            overflowY: 'hidden',
-            padding: '0.5rem 0 1rem',
-            scrollSnapType: 'x mandatory',
-            WebkitOverflowScrolling: 'touch',
-            width: '100%',
+        {allTechs.length > 0 && (
+          <div style={{
             position: 'relative',
+            maxWidth: `${sliderWidth}px`,
+            margin: '0 auto',
           }}>
-            <div className="skills-mobile-track" style={{
-              display: 'flex',
-              gap: '0.75rem',
-              padding: '0 12px',
-              width: 'max-content',
-              minWidth: '100%',
+            <button
+              onClick={handlePrev}
+              disabled={isAtStart}
+              style={{
+                position: 'absolute', left: '-20px', top: '50%',
+                transform: 'translateY(-50%)', zIndex: 10,
+                width: '40px', height: '40px', borderRadius: '50%',
+                border: '1px solid rgba(255,255,255,0.1)',
+                background: 'rgba(5,5,15,0.6)',
+                backdropFilter: 'blur(8px)',
+                color: isAtStart ? 'rgba(255,255,255,0.2)' : 'var(--text-main)',
+                cursor: isAtStart ? 'default' : 'pointer',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                transition: 'all 0.3s ease',
+                opacity: isAtStart ? 0.3 : 1,
+              }}
+              onMouseEnter={(e) => { if (!isAtStart) { e.currentTarget.style.background = 'var(--accent-blue)'; e.currentTarget.style.color = '#000'; } }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(5,5,15,0.6)'; e.currentTarget.style.color = isAtStart ? 'rgba(255,255,255,0.2)' : 'var(--text-main)'; }}
+            >
+              <CaretLeft size={20} weight="bold" />
+            </button>
+
+            <div style={{
+              overflow: 'hidden',
+              borderRadius: '20px',
+              padding: '1rem 0',
             }}>
-              {visibleCategories.map((cat) =>
-                cat.techs.map((tech) => (
-                  <div key={tech.name} style={{
-                    scrollSnapAlign: 'start',
-                    flexShrink: 0,
-                  }}>
-                    <SkillBadge tech={tech} color={cat.color} size={64} />
-                  </div>
-                ))
-              )}
+              <div
+                ref={sliderRef}
+                style={{
+                  display: 'flex',
+                  gap: '1rem',
+                  justifyContent: 'center',
+                  transition: 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                  transform: `translateX(-${currentIndex * (badgeSize + 24 + 16)}px)`,
+                }}
+              >
+                {allTechs.map((item, i) => (
+                  <SkillBadge
+                    key={`${item.tech.name}-${i}`}
+                    tech={item.tech}
+                    color={item.color}
+                    size={badgeSize}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
-        ) : (
-          <div
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              justifyContent: 'center',
-              alignContent: 'center',
-              gap: '2.2rem 1rem',
-              maxWidth: '980px',
-              margin: '0 auto',
-            }}
-          >
-            {visibleCategories.map((cat) =>
-              cat.techs.map((tech) => (
-                <SkillBadge
-                  key={tech.name}
-                  tech={tech}
-                  color={cat.color}
-                  size={badgeSize}
+
+            <button
+              onClick={handleNext}
+              disabled={isAtEnd}
+              style={{
+                position: 'absolute', right: '-20px', top: '50%',
+                transform: 'translateY(-50%)', zIndex: 10,
+                width: '40px', height: '40px', borderRadius: '50%',
+                border: '1px solid rgba(255,255,255,0.1)',
+                background: 'rgba(5,5,15,0.6)',
+                backdropFilter: 'blur(8px)',
+                color: isAtEnd ? 'rgba(255,255,255,0.2)' : 'var(--text-main)',
+                cursor: isAtEnd ? 'default' : 'pointer',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                transition: 'all 0.3s ease',
+                opacity: isAtEnd ? 0.3 : 1,
+              }}
+              onMouseEnter={(e) => { if (!isAtEnd) { e.currentTarget.style.background = 'var(--accent-blue)'; e.currentTarget.style.color = '#000'; } }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(5,5,15,0.6)'; e.currentTarget.style.color = isAtEnd ? 'rgba(255,255,255,0.2)' : 'var(--text-main)'; }}
+            >
+              <CaretRight size={20} weight="bold" />
+            </button>
+
+            <div style={{
+              display: 'flex', justifyContent: 'center', gap: '0.5rem',
+              marginTop: '1rem',
+            }}>
+              {Array.from({ length: maxIndex + 1 }, (_, i) => (
+                <button
+                  key={i}
+                  onClick={() => scrollToIndex(i)}
+                  style={{
+                    width: i === currentIndex ? '24px' : '8px', height: '8px',
+                    borderRadius: '4px', border: 'none', padding: 0, cursor: 'pointer',
+                    background: i === currentIndex
+                      ? 'linear-gradient(90deg, #00d2ff, #7a00ff)'
+                      : 'rgba(255,255,255,0.15)',
+                    transition: 'all 0.3s ease',
+                  }}
+                  aria-label={`Go to slide ${i + 1}`}
                 />
-              ))
-            )}
+              ))}
+            </div>
           </div>
         )}
       </div>
-      <style>{`.skills-mobile-slider::-webkit-scrollbar { display: none; }
-.skills-mobile-slider { -ms-overflow-style: none; scrollbar-width: none; }`}</style>
     </section>
   );
 };
