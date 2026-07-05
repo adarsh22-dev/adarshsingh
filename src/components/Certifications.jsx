@@ -11,13 +11,14 @@ const badges = Array.from({ length: 21 }, (_, i) => ({ img: `/badges/img${i + 1}
 const Certifications = () => {
   const containerRef = useRef();
   const sliderRef = useRef();
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(max-width: 768px)').matches
+  );
   const [currentIndex, setCurrentIndex] = useState(0);
   const [touchStart, setTouchStart] = useState(null);
 
   useEffect(() => {
     const mq = window.matchMedia('(max-width: 768px)');
-    setIsMobile(mq.matches);
     const handler = (e) => setIsMobile(e.matches);
     mq.addEventListener('change', handler);
     return () => mq.removeEventListener('change', handler);
@@ -26,8 +27,8 @@ const Certifications = () => {
   const scrollTo = useCallback((dir) => {
     const slider = sliderRef.current;
     if (!slider) return;
-    const cardW = slider.children[0]?.offsetWidth || 260;
-    const gap = 24;
+    const cardW = slider.children[0]?.offsetWidth || 160;
+    const gap = 12;
     const step = cardW + gap;
     const maxScroll = slider.scrollWidth - slider.clientWidth;
     let newScroll = slider.scrollLeft + (dir === 'next' ? step : -step);
@@ -39,8 +40,8 @@ const Certifications = () => {
   const scrollToIndex = useCallback((i) => {
     const slider = sliderRef.current;
     if (!slider) return;
-    const cardW = slider.children[0]?.offsetWidth || 260;
-    const step = cardW + 24;
+    const cardW = slider.children[0]?.offsetWidth || 160;
+    const step = cardW + 12;
     slider.scrollTo({ left: i * step, behavior: 'smooth' });
     setCurrentIndex(i);
   }, []);
@@ -48,8 +49,8 @@ const Certifications = () => {
   const handleScroll = useCallback(() => {
     const slider = sliderRef.current;
     if (!slider) return;
-    const cardW = slider.children[0]?.offsetWidth || 260;
-    const step = cardW + 24;
+    const cardW = slider.children[0]?.offsetWidth || 160;
+    const step = cardW + 12;
     const idx = Math.round(slider.scrollLeft / step);
     setCurrentIndex(Math.min(idx, badges.length - 1));
   }, []);
@@ -58,7 +59,7 @@ const Certifications = () => {
   const handleTouchEnd = (e) => {
     if (touchStart === null) return;
     const diff = touchStart - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 50) {
+    if (Math.abs(diff) > 40) {
       scrollTo(diff > 0 ? 'next' : 'prev');
     }
     setTouchStart(null);
@@ -115,10 +116,11 @@ const Certifications = () => {
             Verified credentials
           </p>
           <h2 style={{
-            fontSize: isMobile ? '2.5rem' : '2.5rem',
+            fontSize: isMobile ? '1.8rem' : '2.5rem',
             textAlign: 'center',
             color: 'var(--text-main)',
             margin: '0.5rem 0 0',
+            lineHeight: '1.2',
           }}>
             Certifications &{' '}
             <span className="glowing-text" style={{
@@ -133,7 +135,6 @@ const Certifications = () => {
         </div>
 
         <div style={{ position: 'relative', padding: isMobile ? '0 12px' : '0 40px' }}>
-          {/* Arrows (desktop only) */}
           {!isMobile && (
             <>
               <button
@@ -198,11 +199,11 @@ const Certifications = () => {
             onTouchEnd={handleTouchEnd}
             style={{
               display: 'flex',
-              gap: '1rem',
+              gap: isMobile ? '0.75rem' : '1.5rem',
               overflowX: 'auto',
               scrollSnapType: 'x mandatory',
               scrollPadding: isMobile ? '12px' : '0',
-              padding: isMobile ? '10px 4px' : '20px 10px',
+              padding: isMobile ? '8px 4px' : '20px 10px',
               scrollbarWidth: 'none',
             }}
             className="cert-slider"
@@ -212,9 +213,9 @@ const Certifications = () => {
                 key={index}
                 style={{
                   flex: '0 0 auto',
-                  width: isMobile ? '160px' : '220px',
+                  width: isMobile ? '140px' : '220px',
                   scrollSnapAlign: 'center',
-                  padding: isMobile ? '0.85rem' : '1.5rem',
+                  padding: isMobile ? '0.75rem' : '1.5rem',
                   background: index === currentIndex
                     ? 'linear-gradient(135deg, rgba(122,0,255,0.15), rgba(0,210,255,0.05))'
                     : 'rgba(255,255,255,0.03)',
@@ -232,8 +233,8 @@ const Certifications = () => {
                 }}
               >
                 <div style={{
-                  width: isMobile ? '120px' : '160px',
-                  height: isMobile ? '120px' : '160px',
+                  width: isMobile ? '100px' : '160px',
+                  height: isMobile ? '100px' : '160px',
                   borderRadius: '16px',
                   overflow: 'hidden',
                   display: 'flex',
@@ -258,7 +259,7 @@ const Certifications = () => {
                   />
                 </div>
                 <span style={{
-                  fontSize: '0.75rem',
+                  fontSize: '0.7rem',
                   color: index === currentIndex ? 'var(--text-main)' : 'var(--text-muted)',
                   fontWeight: 500,
                   textAlign: 'center'
