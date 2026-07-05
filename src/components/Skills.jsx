@@ -329,30 +329,57 @@ const Skills = () => {
           })}
         </div>
 
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'center',
-            alignContent: 'center',
-            gap: isMobile ? '1.4rem 0.6rem' : '2.2rem 1rem',
-            maxWidth: '980px',
-            margin: '0 auto',
-            padding: isMobile ? '0 0.5rem' : '0',
+        {isMobile ? (
+          <div style={{
+            overflowX: 'auto',
+            padding: '0.5rem 0 1rem',
+            scrollSnapType: 'x mandatory',
+            scrollbarWidth: 'none',
+            WebkitOverflowScrolling: 'touch',
           }}
-        >
-          {visibleCategories.map((cat) =>
-            cat.techs.map((tech) => (
-              <SkillBadge
-                key={tech.name}
-                tech={tech}
-                color={cat.color}
-                size={badgeSize}
-              />
-            ))
-          )}
-        </div>
+            className="skills-mobile-slider"
+          >
+            <div style={{
+              display: 'flex',
+              gap: '1rem',
+              padding: '0 16px',
+              width: 'max-content',
+            }}>
+              {visibleCategories.map((cat) =>
+                cat.techs.map((tech) => (
+                  <div key={tech.name} style={{ scrollSnapAlign: 'start' }}>
+                    <SkillBadge tech={tech} color={cat.color} size={badgeSize} />
+                  </div>
+                ))
+              )}
+            </div>
+          </div>
+        ) : (
+          <div
+            style={{
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              alignContent: 'center',
+              gap: '2.2rem 1rem',
+              maxWidth: '980px',
+              margin: '0 auto',
+            }}
+          >
+            {visibleCategories.map((cat) =>
+              cat.techs.map((tech) => (
+                <SkillBadge
+                  key={tech.name}
+                  tech={tech}
+                  color={cat.color}
+                  size={badgeSize}
+                />
+              ))
+            )}
+          </div>
+        )}
       </div>
+      <style>{`.skills-mobile-slider::-webkit-scrollbar { display: none; }`}</style>
     </section>
   );
 };
