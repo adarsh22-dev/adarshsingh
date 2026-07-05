@@ -86,14 +86,14 @@ function SkillsScene({ isMobile }) {
       });
     });
     return r;
-  }, []);
+  }, [isMobile, cols, spacing]);
 
   const camZ = isMobile ? 9 : 8;
 
   return (
     <Canvas
       dpr={[1, 1.5]}
-      gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
+      gl={{ alpha: true, antialias: true, powerPreference: 'high-performance', preserveDrawingBuffer: true }}
       camera={{ position: [0, 0, camZ], fov: 50 }}
       style={{ width: '100%', height: '100%' }}
     >
