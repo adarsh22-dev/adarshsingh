@@ -10,6 +10,7 @@ const Projects = () => {
   const containerRef = useRef();
   const sliderRef = useRef();
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [touchStart, setTouchStart] = useState(null);
 
   const [cardWidth, setCardWidth] = useState(400);
   const cardGap = 32;
@@ -21,6 +22,16 @@ const Projects = () => {
     window.addEventListener('resize', updateWidth);
     return () => window.removeEventListener('resize', updateWidth);
   }, []);
+
+  const handleTouchStart = (e) => setTouchStart(e.touches[0].clientX);
+  const handleTouchEnd = (e) => {
+    if (touchStart === null) return;
+    const diff = touchStart - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      scrollTo(diff > 0 ? 'next' : 'prev');
+    }
+    setTouchStart(null);
+  };
 
   const scrollTo = useCallback((dir) => {
     const slider = sliderRef.current;
@@ -124,17 +135,19 @@ const Projects = () => {
       </div>
 
       <div style={{ position: 'relative' }}>
-        <div
-          ref={sliderRef}
-          onScroll={handleScroll}
-          style={{
-            overflowX: 'auto',
-            padding: '20px 24px',
-            scrollSnapType: 'x mandatory',
-            scrollbarWidth: 'none',
-          }}
-          className="projects-slider"
-        >
+          <div
+            ref={sliderRef}
+            onScroll={handleScroll}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+            style={{
+              overflowX: 'auto',
+              padding: '20px 24px',
+              scrollSnapType: 'x mandatory',
+              scrollbarWidth: 'none',
+            }}
+            className="projects-slider"
+          >
           <div style={{
             display: 'flex',
             gap: '2rem',

@@ -166,13 +166,18 @@ const Skills = () => {
 
         <div style={{
           display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'center',
+          flexWrap: isMobile ? 'nowrap' : 'wrap',
+          justifyContent: isMobile ? 'flex-start' : 'center',
           gap: '0.5rem',
           marginTop: isMobile ? '1.5rem' : '2rem',
           maxWidth: '800px',
-          margin: `${isMobile ? '1.5rem' : '2rem'} auto 0`
-        }}>
+          margin: `${isMobile ? '1.5rem' : '2rem'} auto 0`,
+          overflowX: isMobile ? 'auto' : 'visible',
+          paddingBottom: isMobile ? '8px' : '0',
+          WebkitOverflowScrolling: 'touch',
+        }}
+        className={isMobile ? 'skills-tags-scroll' : ''}
+        >
           {skillCategories.map((cat) => (
             <React.Fragment key={cat.name}>
               {cat.techs.map((techName) => (
@@ -208,6 +213,9 @@ const Skills = () => {
           ))}
         </div>
       </div>
+      <style>{`
+        .skills-tags-scroll::-webkit-scrollbar { display: none; }
+      `}</style>
     </section>
   );
 };
