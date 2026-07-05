@@ -183,7 +183,7 @@ const Contact = () => {
         <div className="contact-right" style={{
           flex: '1.5',
           minWidth: isMobile ? '0' : '350px',
-          height: isMobile ? '250px' : '600px',
+          height: isMobile ? '70vh' : '600px',
           order: isMobile ? -1 : 0,
           borderRadius: '24px',
           overflow: 'hidden',
