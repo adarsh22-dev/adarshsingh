@@ -10,18 +10,24 @@ export const aboutData = [
   {
     title: 'skills',
     info: [
-      { title: 'Backend & Data', icons: [Code, Sparkle, Database] },
-      { title: 'AI / Agentic', icons: [Sparkle, Code] },
+      { title: 'Frontend Engineering (React, Next.js, TypeScript)', icons: [Code, Sparkle] },
+      { title: 'AI Agents & Agentic Workflows (CrewAI, LangGraph)', icons: [Sparkle, Code] },
+      { title: 'Backend (Java/Spring Boot, Python/FastAPI, Node.js)', icons: [Database, Code] },
+      { title: 'Ecommerce (Shopify Plus, WordPress, Magento 2)', icons: [Code, Sparkle] },
     ],
   },
   {
-    title: 'awards',
+    title: 'certifications',
     info: [
-      { title: 'Generative AI Mastermind — Outskill', stage: '2024' },
-      { title: 'Building AI Agents & Agentic Workflows Specialization', stage: '2024' },
-      { title: 'Google Project Management Certificate', stage: '2023' },
-      { title: 'Shopify Theme Development: Online Store 2.0 + TailwindCSS', stage: '2022' },
-      { title: 'Simplified Magento 2 Certification', stage: '2022' },
+      { title: 'Building AI Agents & Agentic Workflows Specialization — IBM', stage: '2026' },
+      { title: 'Agentic AI with LangGraph, CrewAI, AutoGen and BeeAI — IBM', stage: '2026' },
+      { title: 'Generative AI Mastermind — Outskill', stage: '2026' },
+      { title: 'JPMorganChase Software Engineering Job Simulation — Forage', stage: '2026' },
+      { title: 'Deloitte Australia Data Analytics Job Simulation — Forage', stage: '2026' },
+      { title: 'Google Project Management Certificate', stage: '2024' },
+      { title: 'Google UX Design Certificate', stage: '2024' },
+      { title: 'IBM Full Stack Application Development Capstone', stage: '2024' },
+      { title: 'IBM Cloud & Container/Kubernetes Essentials V2', stage: '2024' },
     ],
   },
   {
@@ -37,9 +43,9 @@ export const aboutData = [
     title: 'credentials',
     info: [
       { title: 'BCA, Computer Science — Bharati Vidyapeeth, Mumbai', stage: '2021' },
-      { title: 'Generative AI Mastermind — Outskill', stage: '2024' },
-      { title: 'Google Project Management Certificate', stage: '2023' },
-      { title: 'Shopify Theme Development: Online Store 2.0', stage: '2022' },
+      { title: 'IBM Full Stack Software Developer Assessment V2', stage: '2024' },
+      { title: 'Claude Code in Action — Anthropic', stage: '2026' },
+      { title: 'Cisco Python Essentials 1 & 2', stage: '2024' },
     ],
   },
 ];
@@ -122,7 +128,7 @@ const About = () => {
             lineHeight: '1.1',
             fontWeight: 'bold',
           }}>
-            Building AI-powered products that <span style={{ color: '#ff3333' }}>ship</span> to production.
+            Full-Stack Engineer & AI Developer crafting products that <span style={{ color: '#ff3333' }}>ship</span>.
           </h2>
 
           <p className="about-desc" style={{
@@ -131,7 +137,7 @@ const About = () => {
             lineHeight: '1.8',
             color: 'var(--text-muted)',
           }}>
-            Full-Stack Software Engineer with 6+ years of experience building scalable web applications, ecommerce platforms, AI-powered products, and automation systems. Expertise spans AI Agents & Agentic Workflows, React.js, Next.js, TypeScript & JavaScript, Shopify Plus & Custom Theme Development, RAG Systems & AI Integrations, Frontend Architecture & Performance Optimization, and API Development & Automation. Built and optimized 50+ ecommerce stores and web applications, improved operational efficiency through intelligent automation, and developed AI-powered products and agentic workflows. Currently at CISAI working on AI-driven applications, frontend engineering, automation systems, and scalable product development. Open to AI Engineering, Full-Stack Development, Frontend Engineering, Shopify Plus Development, and remote product-based roles.
+            Full-Stack Software Engineer with 6+ years of experience building scalable web applications, ecommerce platforms, and AI-powered products. Professional strength in React.js/Next.js/TypeScript frontend engineering and Shopify Plus/WordPress ecommerce development, extended through independent full-stack and AI engineering projects into Java/Spring Boot, Python/FastAPI, multi-agent AI systems (CrewAI), and RAG. Currently at CISAI working on AI-driven applications and automation systems. Backed by 20+ certifications spanning full-stack development, cloud, containers/Kubernetes, microservices, and applied AI/agentic systems.
           </p>
 
           <div className="about-counters" style={{
@@ -143,7 +149,7 @@ const About = () => {
               { value: '6+', label: 'Years of experience.' },
               { value: '50+', label: 'Ecommerce stores built.' },
               { value: '70%', label: 'Manual effort reduction.' },
-              { value: '5', label: 'Professional certifications.' },
+              { value: '20+', label: 'Professional certifications.' },
             ].map((stat, i) => (
               <div key={i} style={{
                 position: 'relative',

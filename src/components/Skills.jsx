@@ -11,44 +11,79 @@ const skillCategories = [
     color: '#00d2ff',
     techs: [
       { name: 'React JS', icon: '/tech/reactjs.png' },
+      { name: 'Next.js', icon: '/tech/nextjs.svg' },
       { name: 'TypeScript', icon: '/tech/typescript.png' },
       { name: 'JavaScript', icon: '/tech/javascript.png' },
-      { name: 'HTML 5', icon: '/tech/html.png' },
-      { name: 'CSS 3', icon: '/tech/css.png' },
+      { name: 'HTML5', icon: '/tech/html.png' },
+      { name: 'CSS3', icon: '/tech/css.png' },
+      { name: 'jQuery', icon: '/tech/jquery.svg' },
       { name: 'Tailwind CSS', icon: '/tech/tailwind.png' },
-      { name: 'Redux Toolkit', icon: '/tech/redux.png' },
-      { name: 'Three JS', icon: '/tech/threejs.svg' },
-      { name: 'Figma', icon: '/tech/figma.png' },
+      { name: 'Responsive Design', icon: '/tech/responsive.svg' },
+      { name: 'Core Web Vitals', icon: '/tech/core-web-vitals.svg' },
+    ],
+  },
+  {
+    name: 'Ecommerce/CMS',
+    color: '#00ff88',
+    techs: [
+      { name: 'Shopify Plus', icon: '/tech/shopify-plus.svg' },
+      { name: 'Shopify', icon: '/tech/shopify.svg' },
+      { name: 'WordPress', icon: '/tech/wordpress.svg' },
+      { name: 'Magento 2', icon: '/tech/magento2.svg' },
+      { name: 'Liquid', icon: '/tech/liquid.svg' },
     ],
   },
   {
     name: 'Backend',
     color: '#7a00ff',
     techs: [
-      { name: 'Node JS', icon: '/tech/nodejs.png' },
+      { name: 'Java 17', icon: '/tech/java.svg' },
+      { name: 'Spring Boot', icon: '/tech/springboot.svg' },
       { name: 'Python', icon: '/tech/python.svg' },
-      { name: 'C', icon: '/tech/c.svg' },
-      { name: 'C++', icon: '/tech/cpp.svg' },
-      { name: '.NET', icon: '/tech/dotnet.svg' },
+      { name: 'FastAPI', icon: '/tech/fastapi.svg' },
+      { name: 'Node.js', icon: '/tech/nodejs.png' },
+      { name: 'Express.js', icon: '/tech/express.svg' },
+      { name: 'REST APIs', icon: '/tech/restapi.svg' },
+      { name: 'GraphQL', icon: '/tech/graphql.svg' },
+      { name: 'JWT Auth', icon: '/tech/jwt.svg' },
+      { name: 'Hibernate', icon: '/tech/hibernate.svg' },
     ],
   },
   {
-    name: 'Platforms',
+    name: 'AI/ML',
     color: '#ff6b6b',
     techs: [
-      { name: 'Shopify', icon: '/tech/shopify.svg' },
-      { name: 'WordPress', icon: '/tech/wordpress.svg' },
-      { name: 'Magento', icon: '/tech/magento.svg' },
-      { name: 'CRM', icon: '/tech/crm.svg' },
+      { name: 'AI Agents', icon: '/tech/ai-agents.svg' },
+      { name: 'CrewAI', icon: '/tech/crewai.svg' },
+      { name: 'LangGraph', icon: '/tech/langgraph.svg' },
+      { name: 'RAG', icon: '/tech/chromadb.svg' },
+      { name: 'Prompt Engineering', icon: '/tech/prompt-engineering.svg' },
+      { name: 'LLM Integration', icon: '/tech/llm.svg' },
     ],
   },
   {
-    name: 'Tools',
+    name: 'Data',
     color: '#ffd93d',
     techs: [
-      { name: 'Git', icon: '/tech/git.png' },
-      { name: 'Docker', icon: '/tech/docker.png' },
+      { name: 'MySQL', icon: '/tech/mysql.svg' },
+      { name: 'PostgreSQL', icon: '/tech/postgresql.svg' },
+      { name: 'Django/SQL', icon: '/tech/django.svg' },
+      { name: 'Oracle DB', icon: '/tech/oracle.svg' },
       { name: 'MongoDB', icon: '/tech/mongodb.png' },
+    ],
+  },
+  {
+    name: 'DevOps/Cloud',
+    color: '#4fc3f7',
+    techs: [
+      { name: 'Docker', icon: '/tech/docker.png' },
+      { name: 'CI/CD', icon: '/tech/cicd.svg' },
+      { name: 'Git', icon: '/tech/git.png' },
+      { name: 'Cloud Computing', icon: '/tech/cloud.svg' },
+      { name: 'Kubernetes', icon: '/tech/kubernetes.svg' },
+      { name: 'Testing', icon: '/tech/testing.svg' },
+      { name: 'Playwright', icon: '/tech/playwright.svg' },
+      { name: 'Vitest', icon: '/tech/vitest.svg' },
     ],
   },
 ];
@@ -58,6 +93,7 @@ const DECAGON_CLIP =
 
 const SkillBadge = ({ tech, color, size }) => {
   const [hover, setHover] = useState(false);
+  const [imgError, setImgError] = useState(false);
 
   return (
     <div
@@ -87,23 +123,29 @@ const SkillBadge = ({ tech, color, size }) => {
           transform: hover ? 'translateY(-6px) scale(1.06)' : 'translateY(0) scale(1)',
           transition: 'all 0.35s cubic-bezier(.2,.8,.2,1)',
           cursor: 'default',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
-        <img
-          src={tech.icon}
-          alt={tech.name}
-          loading="lazy"
-          style={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: size * 0.5,
-            height: size * 0.5,
-            objectFit: 'contain',
-            filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.35))',
-          }}
-        />
+        {imgError ? (
+          <span style={{ fontSize: size * 0.22, fontWeight: 700, color: '#555', textAlign: 'center', lineHeight: 1.2 }}>
+            {tech.name.split(' ')[0]}
+          </span>
+        ) : (
+          <img
+            src={tech.icon}
+            alt={tech.name}
+            loading="lazy"
+            onError={() => setImgError(true)}
+            style={{
+              width: size * 0.5,
+              height: size * 0.5,
+              objectFit: 'contain',
+              filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.35))',
+            }}
+          />
+        )}
       </div>
       <span
         style={{

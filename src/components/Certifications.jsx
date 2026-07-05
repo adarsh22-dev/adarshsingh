@@ -6,7 +6,34 @@ import { CaretLeft, CaretRight } from '@phosphor-icons/react';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const badges = Array.from({ length: 21 }, (_, i) => ({ img: `/badges/img${i + 1}.png` }));
+const certs = [
+  'Full Stack Application Development Capstone Project V2 — IBM',
+  'Full Stack Software Developer Assessment V2 — IBM',
+  'Front-end Development with React — IBM',
+  'Node and Express Essentials — IBM',
+  'Developing Applications with SQL, Databases, and Django — IBM',
+  'Container & Kubernetes Essentials V2 — IBM',
+  'Application Development using Microservices and Serverless — IBM',
+  'Introduction to Cloud Computing — IBM',
+  'Git and GitHub Essentials — IBM',
+  'Web Development with HTML, CSS, JavaScript Essentials — IBM',
+  'Python Essentials 1 — Cisco Networking Academy',
+  'Python Essentials 2 — Cisco Networking Academy',
+  'Python Project for AI and Application Development — IBM',
+  'Python for Data Science and AI — IBM',
+  'Agentic AI with LangGraph, CrewAI, AutoGen and BeeAI — IBM',
+  'Building AI Agents and Agentic Workflows Specialization — IBM',
+  'Generative AI Mastermind — Outskill',
+  'Cyber Threat Management — Cisco Networking Academy',
+  'Shopify Theme Development: Online Store 2.0 + TailwindCSS',
+  'Shopify Foundations: Introduction to Cross-Border Selling',
+  'Simplified Magento 2',
+  'Google Project Management Certificate',
+  'Google UX Design Certificate',
+  'Claude Code in Action — Anthropic',
+  'JPMorganChase Software Engineering Job Simulation — Forage',
+  'Deloitte Australia Data Analytics Job Simulation — Forage',
+];
 
 const DesktopSlider = () => {
   const sliderRef = useRef();
@@ -15,7 +42,7 @@ const DesktopSlider = () => {
   const scrollTo = useCallback((dir) => {
     const slider = sliderRef.current;
     if (!slider) return;
-    const cardW = slider.children[0]?.offsetWidth || 220;
+    const cardW = slider.children[0]?.offsetWidth || 260;
     const step = cardW + 24;
     const maxScroll = slider.scrollWidth - slider.clientWidth;
     let newScroll = slider.scrollLeft + (dir === 'next' ? step : -step);
@@ -27,7 +54,7 @@ const DesktopSlider = () => {
   const scrollToIndex = useCallback((i) => {
     const slider = sliderRef.current;
     if (!slider) return;
-    const cardW = slider.children[0]?.offsetWidth || 220;
+    const cardW = slider.children[0]?.offsetWidth || 260;
     const step = cardW + 24;
     slider.scrollTo({ left: i * step, behavior: 'smooth' });
     setCurrentIndex(i);
@@ -36,10 +63,10 @@ const DesktopSlider = () => {
   const handleScroll = useCallback(() => {
     const slider = sliderRef.current;
     if (!slider) return;
-    const cardW = slider.children[0]?.offsetWidth || 220;
+    const cardW = slider.children[0]?.offsetWidth || 260;
     const step = cardW + 24;
     const idx = Math.round(slider.scrollLeft / step);
-    setCurrentIndex(Math.min(idx, badges.length - 1));
+    setCurrentIndex(Math.min(idx, certs.length - 1));
   }, []);
 
   return (
@@ -87,12 +114,12 @@ const DesktopSlider = () => {
         }}
         className="cert-slider"
       >
-        {badges.map((badge, index) => (
+        {certs.map((cert, index) => (
           <div
             key={index}
             style={{
-              flex: '0 0 auto', width: '220px', scrollSnapAlign: 'center',
-              padding: '1.5rem',
+              flex: '0 0 auto', width: '260px', scrollSnapAlign: 'center',
+              padding: '1.25rem 1rem',
               background: index === currentIndex
                 ? 'linear-gradient(135deg, rgba(122,0,255,0.15), rgba(0,210,255,0.05))'
                 : 'rgba(255,255,255,0.03)',
@@ -103,30 +130,23 @@ const DesktopSlider = () => {
               transition: 'all 0.4s ease',
               transform: index === currentIndex ? 'scale(1.02) translateY(-4px)' : 'scale(1)',
               boxShadow: index === currentIndex ? '0 8px 30px rgba(122,0,255,0.2)' : 'none',
-              display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem',
+              display: 'flex', flexDirection: 'column', gap: '0.5rem',
             }}
           >
             <div style={{
-              width: '160px', height: '160px', borderRadius: '16px', overflow: 'hidden',
+              width: '48px', height: '48px', borderRadius: '12px',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              background: 'rgba(0,0,0,0.2)',
+              background: 'linear-gradient(135deg, #7a00ff, #00d2ff)',
+              fontSize: '1.1rem', fontWeight: 800, color: '#fff',
             }}>
-              <img
-                src={badge.img} alt={`Badge ${index + 1}`}
-                style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                  e.target.parentElement.innerHTML =
-                    '<div style="color:var(--text-muted);font-size:0.75rem;text-align:center;padding:1rem">Badge</div>';
-                }}
-              />
+              {String(index + 1).padStart(2, '0')}
             </div>
             <span style={{
-              fontSize: '0.75rem',
+              fontSize: '0.78rem',
               color: index === currentIndex ? 'var(--text-main)' : 'var(--text-muted)',
-              fontWeight: 500, textAlign: 'center',
+              fontWeight: 500, lineHeight: '1.4',
             }}>
-              Certificate #{index + 1}
+              {cert}
             </span>
           </div>
         ))}
@@ -137,7 +157,7 @@ const DesktopSlider = () => {
         marginTop: '1.5rem', flexWrap: 'wrap', maxWidth: '400px',
         margin: '1.5rem auto 0',
       }}>
-        {badges.map((_, i) => (
+        {certs.map((_, i) => (
           <button
             key={i} onClick={() => scrollToIndex(i)}
             style={{
@@ -148,7 +168,7 @@ const DesktopSlider = () => {
                 : 'rgba(255,255,255,0.2)',
               transition: 'all 0.3s ease',
             }}
-            aria-label={`Go to badge ${i + 1}`}
+            aria-label={`Go to certificate ${i + 1}`}
           />
         ))}
       </div>
@@ -159,43 +179,34 @@ const DesktopSlider = () => {
 const MobileGrid = () => (
   <div style={{
     display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)',
+    gridTemplateColumns: '1fr 1fr',
     gap: '0.75rem',
     padding: '0 4px',
   }}>
-    {badges.map((badge, index) => (
+    {certs.map((cert, index) => (
       <div
         key={index}
         style={{
-          display: 'flex', flexDirection: 'column', alignItems: 'center',
-          gap: '0.4rem', padding: '0.6rem 0.4rem',
+          display: 'flex', flexDirection: 'column', gap: '0.3rem',
+          padding: '0.75rem',
           background: 'rgba(255,255,255,0.03)',
           borderRadius: '14px',
           border: '1px solid rgba(255,255,255,0.06)',
         }}
       >
         <div style={{
-          width: '100%', aspectRatio: '1',
-          borderRadius: '10px', overflow: 'hidden',
+          width: '32px', height: '32px', borderRadius: '8px',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          background: 'rgba(0,0,0,0.25)',
+          background: 'linear-gradient(135deg, #7a00ff, #00d2ff)',
+          fontSize: '0.7rem', fontWeight: 800, color: '#fff', marginBottom: '0.2rem',
         }}>
-          <img
-            src={badge.img} alt={`Badge ${index + 1}`}
-            style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-            loading="lazy"
-            onError={(e) => {
-              e.target.style.display = 'none';
-              e.target.parentElement.innerHTML =
-                '<div style="color:var(--text-muted);font-size:0.55rem;text-align:center;padding:0.5rem">Badge</div>';
-            }}
-          />
+          {String(index + 1).padStart(2, '0')}
         </div>
         <span style={{
-          fontSize: '0.55rem', color: 'var(--text-muted)',
-          fontWeight: 500, textAlign: 'center', lineHeight: '1.2',
+          fontSize: '0.6rem', color: 'var(--text-muted)',
+          fontWeight: 500, lineHeight: '1.3',
         }}>
-          Cert #{index + 1}
+          {cert}
         </span>
       </div>
     ))}
@@ -267,7 +278,7 @@ const Certifications = () => {
             margin: '0.4rem 0 0',
             lineHeight: '1.2',
           }}>
-            Certifications &{' '}
+            26 Certifications &{' '}
             <span className="glowing-text" style={{
               background: 'linear-gradient(135deg, #00d2ff, #7a00ff)',
               WebkitBackgroundClip: 'text',

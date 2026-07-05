@@ -11,51 +11,35 @@ gsap.registerPlugin(ScrollTrigger);
 const projects = [
   {
     id: 1,
-    title: 'RAG Document Intelligence',
-    desc: 'Ingested 10K+ internal documents, built chunking/embedding pipeline, exposed REST chat API. Took from prototype to production solo in 3 weeks.',
-    stack: 'Python · LangChain · ChromaDB · FastAPI · OpenAI',
+    title: 'SreeMarket — Multi-Vendor E-Commerce Platform',
+    desc: 'Solo-built full-stack multi-vendor marketplace with Spring Boot 3.2, React 19, Next.js 16, and MySQL 8. Features RBAC, Razorpay payments, and PWA support.',
+    stack: 'Java 17 · Spring Boot · React 19 · Next.js 16 · MySQL 8',
     link: 'https://github.com/adarsh22-dev',
-    img: 'https://placehold.co/600x400/0a0a1a/00d2ff?text=RAG+Pipeline'
+    img: 'https://placehold.co/600x400/0a0a1a/00d2ff?text=SreeMarket'
   },
   {
     id: 2,
-    title: 'Confucius Code Agent',
-    desc: 'Open-source multi-agent CLI with TF-IDF context retrieval, cost-first LLM routing, and Planner-Coder-Reviewer orchestration.',
-    stack: 'Bun · TypeScript · LangChain · Multi-Agent',
+    title: 'NexusAI OS — Enterprise Multi-Agent AI Platform',
+    desc: 'Full-stack multi-agent AI platform with 30 CrewAI pipelines, FastAPI backend, ChromaDB RAG, OpenRouter multi-model gateway, and Docker Compose orchestration.',
+    stack: 'Next.js 15 · React 19 · Python · FastAPI · CrewAI · ChromaDB',
     link: 'https://github.com/adarsh22-dev',
-    img: 'https://placehold.co/600x400/0a0a1a/7a00ff?text=Code+Agent'
+    img: 'https://placehold.co/600x400/0a0a1a/7a00ff?text=NexusAI+OS'
   },
   {
     id: 3,
-    title: 'NexusKit — MCP Server Monorepo',
-    desc: 'Bun/TypeScript monorepo: local stdio MCP, remote HTTP MCP with Clerk OAuth, CLI binary. Deep API-first, modular architecture.',
-    stack: 'Bun · TypeScript · Clerk OAuth · MCP',
+    title: 'ECOM — Full-Stack E-Commerce with AI Assistant & Admin Copilot',
+    desc: 'Dual-backend platform (Next.js 14 + .NET 8) with AI chat assistant, admin AI copilot, Razorpay payments, CI/CD pipelines, and Docker containerization.',
+    stack: 'Next.js 14 · .NET 8 · TypeScript · PostgreSQL · Docker',
     link: 'https://github.com/adarsh22-dev',
-    img: 'https://placehold.co/600x400/0a0a1a/00d2ff?text=NexusKit'
+    img: 'https://placehold.co/600x400/0a0a1a/00d2ff?text=ECOM+AI'
   },
   {
     id: 4,
-    title: 'E-Commerce Data Pipeline',
-    desc: 'Python ETL pipeline syncing Shopify orders + inventory → PostgreSQL → S3 → nightly reconciliation reports. Handled schema drift in production.',
-    stack: 'Python · Pandas · PostgreSQL · AWS S3 · Shopify API',
+    title: 'AI Coding Assistant CLI (In Progress)',
+    desc: 'CLI-based AI coding assistant modeled on Claude Code, providing terminal-embedded coding assistance within VS Code. Built with Python and FastAPI.',
+    stack: 'Python · FastAPI · LLM Integration · CLI',
     link: 'https://github.com/adarsh22-dev',
-    img: 'https://placehold.co/600x400/0a0a1a/7a00ff?text=ETL+Pipeline'
-  },
-  {
-    id: 5,
-    title: 'AWS Lambda Event-Driven Architecture',
-    desc: 'Designed Lambda + S3 + SQS architecture for async data processing jobs, handling spiky IoT workloads without server management at CISAI.',
-    stack: 'AWS Lambda · S3 · SQS · Python · CloudWatch',
-    link: 'https://github.com/adarsh22-dev',
-    img: 'https://placehold.co/600x400/0a0a1a/00d2ff?text=AWS+Architecture'
-  },
-  {
-    id: 6,
-    title: 'Celery + Redis Job Scheduler',
-    desc: 'Built scheduled Python jobs for nightly data aggregations, reconciliation reports, and alert triggers — all with retry logic and dead-letter handling.',
-    stack: 'Python · Celery · Redis · PostgreSQL · FastAPI',
-    link: 'https://github.com/adarsh22-dev',
-    img: 'https://placehold.co/600x400/0a0a1a/7a00ff?text=Job+Scheduler'
+    img: 'https://placehold.co/600x400/0a0a1a/7a00ff?text=AI+CLI'
   },
 ];
 
@@ -126,7 +110,7 @@ const Projects = () => {
     <section ref={containerRef} id="projects" className="projects-section">
       <div className="container">
         <h2 style={{ fontSize: '2.5rem', marginBottom: '3rem', color: 'var(--text-main)' }}>
-          Selected <span className="glowing-text" style={{ color: 'var(--accent-blue)' }}>Works</span>
+          Featured <span className="glowing-text" style={{ color: 'var(--accent-blue)' }}>Projects</span>
         </h2>
       </div>
 

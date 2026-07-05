@@ -59,7 +59,7 @@ const Hero = () => {
     });
   }, { scope: containerRef });
 
-  const tags = ['AI Engineer', 'Shopify Plus Expert', 'React, Next.js & TypeScript', 'AI Agents', 'RAG & Automation'];
+  const tags = ['Full-Stack Engineer', 'AI Engineer', 'Shopify Plus Expert', 'React & Next.js', 'TypeScript', 'AI Agents', 'RAG & Automation'];
 
   return (
     <section ref={containerRef} style={{
@@ -152,7 +152,7 @@ const Hero = () => {
             </span>
             <br />
             <span style={{ color: 'var(--text-main)', fontSize: isMobile ? 'clamp(0.85rem, 3vw, 1.2rem)' : '1.3rem', display: 'block', marginTop: '0.5rem', fontWeight: '500', letterSpacing: '-0.01em' }}>
-              AI Engineer · Shopify Plus Expert · React, Next.js & TypeScript · AI Agents · RAG & Automation
+              Full-Stack Software Engineer | AI Engineer | Shopify Plus Expert | React, Next.js & TypeScript
             </span>
           </h1>
 
@@ -188,7 +188,7 @@ const Hero = () => {
             marginBottom: '2rem',
             maxWidth: '540px'
           }}>
-            Full-Stack Software Engineer with 6+ years of experience building scalable web applications, ecommerce platforms, AI-powered products, and automation systems.
+            Full-Stack Software Engineer with 6+ years of experience building scalable web applications, ecommerce platforms, and AI-powered products. Professional strength in React.js/Next.js/TypeScript frontend engineering and Shopify Plus/WordPress ecommerce development, extended through independent full-stack and AI engineering projects into Java/Spring Boot, Python/FastAPI, multi-agent AI systems (CrewAI), and RAG.
           </p>
 
           <div className="hero-btns" style={{
@@ -247,7 +247,7 @@ const Hero = () => {
             {[
               { value: '6+', label: 'Years Exp' },
               { value: '50+', label: 'Projects' },
-              { value: '70%', label: 'Effort Reduction' }
+              { value: 'Mumbai', label: 'India' }
             ].map((stat) => (
               <div key={stat.label} style={{ flex: isMobile ? 1 : '', textAlign: isMobile ? 'center' : 'left' }}>
                 <div style={{
