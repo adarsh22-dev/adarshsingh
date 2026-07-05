@@ -151,7 +151,9 @@ const Hero = () => {
               Adarsh
             </span>
             <br />
-            <span style={{ color: 'var(--text-main)' }}>Senior Software Engineer</span>
+            <span style={{ color: 'var(--text-main)', fontSize: isMobile ? 'clamp(0.85rem, 3vw, 1.2rem)' : '1.3rem', display: 'block', marginTop: '0.5rem', fontWeight: '500', letterSpacing: '-0.01em' }}>
+              AI Engineer · Shopify Plus Expert · React, Next.js & TypeScript · AI Agents · RAG & Automation
+            </span>
           </h1>
 
           <div className="hero-tags" style={{
