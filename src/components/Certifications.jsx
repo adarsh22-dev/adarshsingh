@@ -176,42 +176,96 @@ const DesktopSlider = () => {
   );
 };
 
-const MobileGrid = () => (
-  <div style={{
-    display: 'grid',
-    gridTemplateColumns: '1fr 1fr',
-    gap: '0.75rem',
-    padding: '0 4px',
-  }}>
-    {certs.map((cert, index) => (
+const MobileSlider = () => {
+  const sliderRef = useRef();
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const scrollToIndex = useCallback((i) => {
+    const slider = sliderRef.current;
+    if (!slider) return;
+    const cardW = slider.children[0]?.offsetWidth || 260;
+    const step = cardW + 16;
+    slider.scrollTo({ left: i * step, behavior: 'smooth' });
+    setCurrentIndex(i);
+  }, []);
+
+  const handleScroll = useCallback(() => {
+    const slider = sliderRef.current;
+    if (!slider) return;
+    const cardW = slider.children[0]?.offsetWidth || 260;
+    const step = cardW + 16;
+    const idx = Math.round(slider.scrollLeft / step);
+    setCurrentIndex(Math.min(idx, certs.length - 1));
+  }, []);
+
+  return (
+    <div>
       <div
-        key={index}
+        ref={sliderRef}
+        onScroll={handleScroll}
         style={{
-          display: 'flex', flexDirection: 'column', gap: '0.3rem',
-          padding: '0.75rem',
-          background: 'rgba(255,255,255,0.03)',
-          borderRadius: '14px',
-          border: '1px solid rgba(255,255,255,0.06)',
+          display: 'flex', gap: '1rem', overflowX: 'auto',
+          scrollSnapType: 'x mandatory', padding: '0.5rem 12px',
+          scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch',
         }}
+        className="cert-mobile-slider"
       >
-        <div style={{
-          width: '32px', height: '32px', borderRadius: '8px',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          background: 'linear-gradient(135deg, #7a00ff, #00d2ff)',
-          fontSize: '0.7rem', fontWeight: 800, color: '#fff', marginBottom: '0.2rem',
-        }}>
-          {String(index + 1).padStart(2, '0')}
-        </div>
-        <span style={{
-          fontSize: '0.6rem', color: 'var(--text-muted)',
-          fontWeight: 500, lineHeight: '1.3',
-        }}>
-          {cert}
-        </span>
+        {certs.map((cert, index) => (
+          <div
+            key={index}
+            style={{
+              flex: '0 0 240px', scrollSnapAlign: 'start',
+              padding: '1rem',
+              background: index === currentIndex
+                ? 'linear-gradient(135deg, rgba(122,0,255,0.15), rgba(0,210,255,0.05))'
+                : 'rgba(255,255,255,0.03)',
+              borderRadius: '16px',
+              border: index === currentIndex
+                ? '1px solid rgba(122,0,255,0.4)'
+                : '1px solid rgba(255,255,255,0.08)',
+              transition: 'all 0.3s ease',
+              transform: index === currentIndex ? 'scale(1.02)' : 'scale(1)',
+            }}
+          >
+            <div style={{
+              width: '36px', height: '36px', borderRadius: '10px',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              background: 'linear-gradient(135deg, #7a00ff, #00d2ff)',
+              fontSize: '0.75rem', fontWeight: 800, color: '#fff', marginBottom: '0.5rem',
+            }}>
+              {String(index + 1).padStart(2, '0')}
+            </div>
+            <span style={{
+              fontSize: '0.7rem', color: 'var(--text-muted)',
+              fontWeight: 500, lineHeight: '1.4',
+            }}>
+              {cert}
+            </span>
+          </div>
+        ))}
       </div>
-    ))}
-  </div>
-);
+      <div style={{
+        display: 'flex', justifyContent: 'center', gap: '0.4rem',
+        marginTop: '1rem', flexWrap: 'wrap',
+      }}>
+        {certs.map((_, i) => (
+          <button
+            key={i} onClick={() => scrollToIndex(i)}
+            style={{
+              width: i === currentIndex ? '20px' : '6px', height: '6px',
+              borderRadius: '3px', border: 'none', padding: 0, cursor: 'pointer',
+              background: i === currentIndex
+                ? 'linear-gradient(90deg, #00d2ff, #7a00ff)'
+                : 'rgba(255,255,255,0.2)',
+              transition: 'all 0.3s ease',
+            }}
+            aria-label={`Go to certificate ${i + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
 
 const Certifications = () => {
   const containerRef = useRef();
@@ -278,7 +332,7 @@ const Certifications = () => {
             margin: '0.4rem 0 0',
             lineHeight: '1.2',
           }}>
-            26 Certifications &{' '}
+            Certifications &{' '}
             <span className="glowing-text" style={{
               background: 'linear-gradient(135deg, #00d2ff, #7a00ff)',
               WebkitBackgroundClip: 'text',
@@ -290,11 +344,12 @@ const Certifications = () => {
           </h2>
         </div>
 
-        {isMobile ? <MobileGrid /> : <DesktopSlider />}
+        {isMobile ? <MobileSlider /> : <DesktopSlider />}
       </div>
 
       <style>{`
-        .cert-slider::-webkit-scrollbar { display: none; }
+        .cert-slider::-webkit-scrollbar,
+        .cert-mobile-slider::-webkit-scrollbar { display: none; }
       `}</style>
     </section>
   );
