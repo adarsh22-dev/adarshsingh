@@ -160,8 +160,22 @@ p {
   section, footer {
     scroll-snap-align: start;
     scroll-snap-stop: always;
-    min-height: 100dvh !important;
     overflow-x: hidden;
+  }
+
+  /* Reduce padding on mobile across all sections */
+  section {
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
+  }
+
+  #hero {
+    padding-top: 100px !important;
+  }
+
+  #experience {
+    padding-top: 30px !important;
+    padding-bottom: 30px !important;
   }
 }
 

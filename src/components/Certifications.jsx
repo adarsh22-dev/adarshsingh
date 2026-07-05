@@ -316,7 +316,11 @@ const Certifications = () => {
       }} />
 
       <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-        <div className="cert-header" style={{ marginBottom: isMobile ? '1.5rem' : '3rem' }}>
+        <div className="cert-header" style={{
+          marginBottom: isMobile ? '1.5rem' : '3rem',
+          opacity: 1,
+          transform: 'translateY(0)',
+        }}>
           <p style={{
             textTransform: 'uppercase', letterSpacing: '2px',
             color: 'var(--text-muted)',
