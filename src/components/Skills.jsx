@@ -226,8 +226,7 @@ const Skills = () => {
       padding: isMobile ? '60px 0' : '100px 0',
       display: 'flex',
       flexDirection: 'column',
-      justifyContent: 'center',
-      overflow: 'hidden'
+      justifyContent: 'center'
     }}>
       <div style={{
         position: 'absolute',
@@ -330,25 +329,29 @@ const Skills = () => {
         </div>
 
         {isMobile ? (
-          <div style={{
+          <div className="skills-mobile-slider" style={{
             overflowX: 'auto',
+            overflowY: 'hidden',
             padding: '0.5rem 0 1rem',
             scrollSnapType: 'x mandatory',
-            scrollbarWidth: 'none',
             WebkitOverflowScrolling: 'touch',
-          }}
-            className="skills-mobile-slider"
-          >
-            <div style={{
+            width: '100%',
+            position: 'relative',
+          }}>
+            <div className="skills-mobile-track" style={{
               display: 'flex',
-              gap: '1rem',
-              padding: '0 16px',
+              gap: '0.75rem',
+              padding: '0 12px',
               width: 'max-content',
+              minWidth: '100%',
             }}>
               {visibleCategories.map((cat) =>
                 cat.techs.map((tech) => (
-                  <div key={tech.name} style={{ scrollSnapAlign: 'start' }}>
-                    <SkillBadge tech={tech} color={cat.color} size={badgeSize} />
+                  <div key={tech.name} style={{
+                    scrollSnapAlign: 'start',
+                    flexShrink: 0,
+                  }}>
+                    <SkillBadge tech={tech} color={cat.color} size={64} />
                   </div>
                 ))
               )}
@@ -379,7 +382,8 @@ const Skills = () => {
           </div>
         )}
       </div>
-      <style>{`.skills-mobile-slider::-webkit-scrollbar { display: none; }`}</style>
+      <style>{`.skills-mobile-slider::-webkit-scrollbar { display: none; }
+.skills-mobile-slider { -ms-overflow-style: none; scrollbar-width: none; }`}</style>
     </section>
   );
 };
